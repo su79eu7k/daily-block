@@ -64,14 +64,14 @@ function Auth () {
                 <div>
                   <label>
                     E-Mail:
-            <input type="email" ref={emailEl} />
                   </label>
+                  <input type="email" ref={emailEl} />
                 </div>
                 <div>
                   <label>
                     Password:
-            <input type="password" ref={passwordEl} />
                   </label>
+                  <input type="password" ref={passwordEl} />
                 </div>
                 <input type="submit" value="Submit" />
                 {isSignUp && <button type="button" onClick={() => setIsSignUp(false)}>Sign In</button>}

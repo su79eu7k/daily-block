@@ -43,7 +43,7 @@ function ContentsWriting () {
         body: JSON.stringify(requestBody),
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${auth.token}`
+          Authorization: 'Bearer ' + auth.token
         }
       }).then(res => {
         return res.json()
