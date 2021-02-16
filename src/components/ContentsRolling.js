@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import AuthContext from '../context/auth-context'
+import ContentCard from '../components/ContentCard'
 
 function ContentsRolling () {
   const [blocks, setBlocks] = useState([])
@@ -41,6 +42,10 @@ function ContentsRolling () {
   return (
     <div>
       <h2>Rolling</h2>
+      {blocks.map((block, index) => {
+        const localDateTimeString = new Date(block.date).toLocaleDateString('ko-kr') + ' ' + new Date(block.date).toLocaleTimeString('ko-kr')
+        return <ContentCard key={index} label={block.label} date={localDateTimeString} content={block.content} />
+      })}
     </div>
   )
 }
