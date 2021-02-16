@@ -3,6 +3,7 @@ import AuthContext from '../context/auth-context'
 
 function ContentsRolling () {
   const [blocks, setBlocks] = useState([])
+  const [label, setLabel] = useState('')
 
   const auth = useContext(AuthContext)
 
@@ -10,8 +11,7 @@ function ContentsRolling () {
     const requestBody = {
       query: `
         query {
-          blocks(label: "") {
-            _id
+          blocks(label: "${label}") {
             label
             content
             date
@@ -35,6 +35,8 @@ function ContentsRolling () {
       console.log(err)
     })
   }, [])
+
+  console.log(setLabel)
 
   return (
     <div>
