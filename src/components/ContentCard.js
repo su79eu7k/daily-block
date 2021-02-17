@@ -10,7 +10,9 @@ function ContentCard (props) {
         (context) => {
           return (
             <div>
-              <div onClick={() => { context.changeLabel(props.label) }}>{props.label}</div>
+              <div onClick={() => {
+                props.label === context.currentLabel ? context.changeLabel('') : context.changeLabel(props.label)
+              }}>{props.label}</div>
               <div>{props.date}</div>
               <div>{props.content}</div>
             </div>
