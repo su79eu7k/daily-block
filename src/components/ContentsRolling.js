@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import AuthContext from '../context/auth-context'
 import LabelContext from '../context/label-context'
-import ContentCard from '../components/ContentCard'
+import Content from './Content'
 
-function ContentsRolling () {
-  const [blocks, setBlocks] = useState([])
+function ContentsRolling (props) {
+  // const [blocks, setBlocks] = useState([])
   const [label, setLabel] = useState({
     currentLabel: '',
     changeLabel: (selectedLabel) => {
@@ -37,7 +38,7 @@ function ContentsRolling () {
     }).then(res => {
       return res.json()
     }).then(resData => {
-      setBlocks([...resData.data.blocks])
+      props.setBlocks([...resData.data.blocks])
     }).catch(err => {
       console.log(err)
     })
@@ -49,13 +50,17 @@ function ContentsRolling () {
     <LabelContext.Provider value={label}>
       <div>
         <h2>Rolling</h2>
-        {blocks.map((block, index) => {
+        {props.blocks.map((block, index) => {
           const localDateTimeString = new Date(block.date).toLocaleDateString('ko-kr') + ' ' + new Date(block.date).toLocaleTimeString('ko-kr')
-          return <ContentCard key={index} label={block.label} date={localDateTimeString} content={block.content} />
+          return <Content key={index} label={block.label} date={localDateTimeString} content={block.content} />
         })}
       </div>
     </LabelContext.Provider>
   )
 }
 
+ContentsRolling.propTypes = {
+  blocks: PropTypes.array,
+  setBlocks: PropTypes.func
+}
 export default ContentsRolling

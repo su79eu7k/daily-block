@@ -1,8 +1,10 @@
-import React, { useRef, useContext } from 'react'
+import React, { useContext, useState, useRef } from 'react'
 import AuthContext from '../context/auth-context'
+import ContentsRolling from './ContentsRolling'
 
 function ContentsWriting () {
   const auth = useContext(AuthContext)
+  const [blocks, setBlocks] = useState([])
   const writingEl = useRef(null)
 
   const writingHandler = (event) => {
@@ -11,6 +13,7 @@ function ContentsWriting () {
 
     const labels = []
     const contents = []
+    // FIXME: If title is #Title, parsing fails.
     if (writing[0].includes('#')) {
       writing.forEach(function (item, index) {
         if (index % 2 === 0) {
@@ -32,7 +35,9 @@ function ContentsWriting () {
         query: `
           mutation {
             createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${date}}) {
-              _id
+              label
+              content
+              date
             }
           }
         `
@@ -48,7 +53,7 @@ function ContentsWriting () {
       }).then(res => {
         return res.json()
       }).then(resData => {
-        console.log(resData)
+        setBlocks([...blocks, resData.data.createBlock])
       }).catch(err => {
         console.log(err)
       })
@@ -69,6 +74,7 @@ function ContentsWriting () {
           <input type="submit" value="Submit"></input>
         </div>
       </form>
+      <ContentsRolling blocks={blocks} setBlocks={setBlocks}/>
     </div>
   )
 }
