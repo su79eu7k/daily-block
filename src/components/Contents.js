@@ -1,10 +1,10 @@
-import React, { useContext, useState, useRef } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import AuthContext from '../context/auth-context'
 import ContentsRolling from './ContentsRolling'
 
 function ContentsWriting () {
+  const [blocksUpdated, setBlocksUpdated] = useState(true)
   const auth = useContext(AuthContext)
-  const [blocks, setBlocks] = useState([])
   const writingEl = useRef(null)
 
   const writingHandler = (event) => {
@@ -42,6 +42,7 @@ function ContentsWriting () {
           }
         `
       }
+
       console.log(requestBody)
       fetch('http://localhost:8000/graphql', {
         method: 'POST',
@@ -53,7 +54,7 @@ function ContentsWriting () {
       }).then(res => {
         return res.json()
       }).then(resData => {
-        setBlocks([...blocks, resData.data.createBlock])
+        setBlocksUpdated(false)
       }).catch(err => {
         console.log(err)
       })
@@ -74,7 +75,7 @@ function ContentsWriting () {
           <input type="submit" value="Submit"></input>
         </div>
       </form>
-      <ContentsRolling blocks={blocks} setBlocks={setBlocks}/>
+      <ContentsRolling blocksUpdated={blocksUpdated} setBlocksUpdated={setBlocksUpdated} />
     </div>
   )
 }
