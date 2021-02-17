@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import LabelContext from '../context/label-context'
 
-function ContentCard (props) {
+function Content (props) {
   return (
     <LabelContext.Consumer>
       {
@@ -23,10 +23,10 @@ function ContentCard (props) {
   )
 }
 
-ContentCard.propTypes = {
+Content.propTypes = {
   label: PropTypes.string,
   date: PropTypes.string,
   content: PropTypes.string
 }
 
-export default ContentCard
+export default Content

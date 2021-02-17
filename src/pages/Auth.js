@@ -38,6 +38,7 @@ function Auth () {
       }
     }
 
+    // FIXME: No login faillure logic.
     fetch('http://localhost:8000/graphql', {
       method: 'POST',
       body: JSON.stringify(requestBody),
