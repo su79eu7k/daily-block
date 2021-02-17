@@ -5,7 +5,7 @@ import LabelContext from '../context/label-context'
 import Content from './Content'
 
 function ContentsRolling (props) {
-  // const [blocks, setBlocks] = useState([])
+  const [blocks, setBlocks] = useState([])
   const [label, setLabel] = useState({
     currentLabel: '',
     changeLabel: (selectedLabel) => {
@@ -38,19 +38,21 @@ function ContentsRolling (props) {
     }).then(res => {
       return res.json()
     }).then(resData => {
-      props.setBlocks([...resData.data.blocks])
+      setBlocks([...resData.data.blocks])
+      props.setBlocksUpdated(true)
     }).catch(err => {
       console.log(err)
     })
   }
 
-  useEffect(fetchBlocks, [label.currentLabel])
+  useEffect(fetchBlocks, [label.currentLabel, props.blocksUpdated])
 
+  // FIXME: Rendering order should be fixed.
   return (
     <LabelContext.Provider value={label}>
       <div>
         <h2>Rolling</h2>
-        {props.blocks.map((block, index) => {
+        {blocks.map((block, index) => {
           const localDateTimeString = new Date(block.date).toLocaleDateString('ko-kr') + ' ' + new Date(block.date).toLocaleTimeString('ko-kr')
           return <Content key={index} label={block.label} date={localDateTimeString} content={block.content} />
         })}
@@ -60,7 +62,7 @@ function ContentsRolling (props) {
 }
 
 ContentsRolling.propTypes = {
-  blocks: PropTypes.array,
-  setBlocks: PropTypes.func
+  blocksUpdated: PropTypes.bool,
+  setBlocksUpdated: PropTypes.func
 }
 export default ContentsRolling
