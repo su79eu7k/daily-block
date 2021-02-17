@@ -1,24 +1,29 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-import AuthContext from '../context/auth-context'
+import LabelContext from '../context/label-context'
 
 function ContentCard (props) {
-  const auth = useContext(AuthContext)
-  console.log(auth)
-
   return (
-    <div>
-      <div>{props.label}</div>
-      <div>{props.date}</div>
-      <div>{props.content}</div>
-    </div>
+    <LabelContext.Consumer>
+      {
+        (context) => {
+          return (
+            <div>
+              <div onClick={() => { context.changeLabel(props.label) }}>{props.label}</div>
+              <div>{props.date}</div>
+              <div>{props.content}</div>
+            </div>
+          )
+        }
+      }
+    </LabelContext.Consumer>
   )
 }
 
 ContentCard.propTypes = {
   label: PropTypes.string,
-  date: PropTypes.number,
+  date: PropTypes.string,
   content: PropTypes.string
 }
 
