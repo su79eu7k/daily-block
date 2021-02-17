@@ -8,9 +8,9 @@ function Home () {
 
   return (
     <React.Fragment>
-    <h1>Home</h1>
-    {auth.token && <ContentsWriting />}
-    {auth.token && <ContentsRolling />}
+      <h1>Home</h1>
+      {auth.token && <ContentsWriting />}
+      {auth.token && <ContentsRolling />}
     </React.Fragment>
   )
 }
