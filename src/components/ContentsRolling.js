@@ -53,8 +53,7 @@ function ContentsRolling (props) {
       <div>
         <h2>Rolling</h2>
         {blocks.map((block, index) => {
-          const localDateTimeString = new Date(block.date).toLocaleDateString('ko-kr') + ' ' + new Date(block.date).toLocaleTimeString('ko-kr')
-          return <Content key={index} label={block.label} date={localDateTimeString} content={block.content} />
+          return <Content key={index} label={block.label} date={block.date} content={block.content} />
         })}
       </div>
     </LabelContext.Provider>

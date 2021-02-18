@@ -9,6 +9,7 @@ function ContentWriting (props) {
   const writingHandler = (event) => {
     event.preventDefault()
     const writing = writingEl.current.value.split(/^(#\s.+)/m).slice(1)
+    const familyTimeStamp = Date.now()
 
     const labels = []
     const contents = []
@@ -28,7 +29,7 @@ function ContentWriting (props) {
     labels.forEach(function (item, index) {
       const label = labels[index]
       const content = contents[index]
-      const date = Date.now()
+      const date = familyTimeStamp
 
       const requestBody = {
         query: `
@@ -67,7 +68,7 @@ function ContentWriting (props) {
           <label>Markdown</label>
         </div>
         <div>
-          <textarea ref={writingEl}></textarea>
+          <textarea ref={writingEl} defaultValue={props.children}></textarea>
         </div>
         <div>
           <input type="submit" value="Submit"></input>
@@ -78,7 +79,8 @@ function ContentWriting (props) {
 }
 
 ContentWriting.propTypes = {
-  setBlocksUpdated: PropTypes.func
+  setBlocksUpdated: PropTypes.func,
+  children: PropTypes.string
 }
 
 export default ContentWriting
