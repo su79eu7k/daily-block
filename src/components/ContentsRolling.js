@@ -65,4 +65,5 @@ ContentsRolling.propTypes = {
   blocksUpdated: PropTypes.bool,
   setBlocksUpdated: PropTypes.func
 }
+
 export default ContentsRolling
