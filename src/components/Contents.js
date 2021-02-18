@@ -2,7 +2,7 @@ import React, { useState, useContext, useRef } from 'react'
 import AuthContext from '../context/auth-context'
 import ContentsRolling from './ContentsRolling'
 
-function ContentsWriting () {
+function Contents () {
   const [blocksUpdated, setBlocksUpdated] = useState(true)
   const auth = useContext(AuthContext)
   const writingEl = useRef(null)
@@ -43,7 +43,6 @@ function ContentsWriting () {
         `
       }
 
-      console.log(requestBody)
       fetch('http://localhost:8000/graphql', {
         method: 'POST',
         body: JSON.stringify(requestBody),
@@ -80,4 +79,4 @@ function ContentsWriting () {
   )
 }
 
-export default ContentsWriting
+export default Contents
