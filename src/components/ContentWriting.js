@@ -11,6 +11,8 @@ function ContentWriting (props) {
     const writing = writingEl.current.value.split(/^(#\s.+)/m).slice(1)
     const familyTimeStamp = Date.now()
 
+    console.log(writing)
+
     const labels = []
     const contents = []
     // FIXME: If title is #Title, parsing fails.
@@ -28,7 +30,7 @@ function ContentWriting (props) {
 
     labels.forEach(function (item, index) {
       const label = labels[index]
-      const content = contents[index]
+      const content = contents[index].replaceAll(/\n/g, '\\n')
       const date = familyTimeStamp
 
       const requestBody = {
