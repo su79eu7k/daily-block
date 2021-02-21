@@ -9,10 +9,9 @@ function ContentWriting (props) {
 
   const writingHandler = (event) => {
     event.preventDefault()
+
     let writing = writingEl.current.value.split(/^(#\s.+)$/m)
     const familyTimeStamp = Date.now()
-
-    console.log(writing)
 
     const labels = []
     const contents = []
