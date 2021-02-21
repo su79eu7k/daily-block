@@ -12,6 +12,7 @@ function ContentsRolling (props) {
       setLabel({ ...label, currentLabel: selectedLabel })
     }
   })
+  const [deletedCount, setDeletedCount] = useState(null)
 
   const auth = useContext(AuthContext)
 
@@ -45,7 +46,7 @@ function ContentsRolling (props) {
     })
   }
 
-  useEffect(fetchBlocks, [label.currentLabel, props.blocksUpdated])
+  useEffect(fetchBlocks, [label.currentLabel, props.blocksUpdated, deletedCount])
 
   // FIXME: Rendering order should be fixed.
   return (
@@ -53,7 +54,7 @@ function ContentsRolling (props) {
       <div>
         <h2>Rolling</h2>
         {blocks.map((block, index) => {
-          return <Content key={index} label={block.label} date={block.date} content={block.content} />
+          return <Content key={index} label={block.label} date={block.date} content={block.content} setDeletedCount={setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} />
         })}
       </div>
     </LabelContext.Provider>
