@@ -9,6 +9,7 @@ import ContentWriting from './ContentWriting'
 function Content (props) {
   const [edit, setEdit] = useState(false)
   const [formValue, setFormValue] = useState(null)
+
   const auth = useContext(AuthContext)
 
   const fetchFamilyBlocks = async () => {
@@ -44,6 +45,30 @@ function Content (props) {
 
   useEffect(fetchFamilyBlocks)
 
+  const deleteFamilyBlocks = async () => {
+    const requestBody = {
+      query: `
+        mutation {
+          deleteFamilyBlocks(date: ${props.date}) {
+            deletedCount
+          }
+        }
+      `
+    }
+
+    const res = await fetch('http://localhost:8000/graphql', {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + auth.token
+      }
+    })
+    const resData = await res.json()
+
+    props.setDeletedCount(resData.data.deleteFamilyBlocks.deletedCount)
+  }
+
   const localDateTimeString = new Date(props.date).toLocaleDateString('ko-kr') + ' ' + new Date(props.date).toLocaleTimeString('ko-kr')
 
   return (
@@ -56,9 +81,9 @@ function Content (props) {
                 props.label === context.currentLabel ? context.changeLabel('') : context.changeLabel(props.label)
               }}>{props.label}</div>
               <div>{localDateTimeString}</div>
-              <div onClick={() => {
-                setEdit(!edit)
-              }}>{props.content}</div>
+              <div><button onClick={() => { setEdit(!edit) }}>Edit</button></div>
+              <div><button onClick={() => { deleteFamilyBlocks() }}>Delete</button></div>
+              <div>{props.content}</div>
               { edit ? <ContentWriting>{formValue}</ContentWriting> : null}
             </div>
           )
@@ -71,7 +96,8 @@ function Content (props) {
 Content.propTypes = {
   label: PropTypes.string,
   date: PropTypes.number,
-  content: PropTypes.string
+  content: PropTypes.string,
+  setDeletedCount: PropTypes.func
 }
 
 export default Content
