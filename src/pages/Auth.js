@@ -9,6 +9,7 @@ function Auth () {
 
   const authHandler = (event, context) => {
     event.preventDefault()
+
     const email = emailEl.current.value
     const password = passwordEl.current.value
 
