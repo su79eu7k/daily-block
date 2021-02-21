@@ -40,10 +40,10 @@ function Content (props) {
       familyBlock.push(e.label + e.content)
     })
 
-    setFormValue(familyBlock.join())
+    setFormValue(familyBlock.join('').replaceAll('\\n', '\n'))
   }
 
-  useEffect(fetchFamilyBlocks)
+  useEffect(fetchFamilyBlocks, [props.blocksUpdated])
 
   const deleteFamilyBlocks = async () => {
     const requestBody = {
@@ -83,7 +83,7 @@ function Content (props) {
               <div>{localDateTimeString}</div>
               <div><button onClick={() => { setEdit(!edit) }}>Edit</button></div>
               <div><button onClick={() => { deleteFamilyBlocks() }}>Delete</button></div>
-              <div>{props.content}</div>
+              <div>{props.content.replaceAll('\\n', '\n')}</div>
               { edit ? <ContentEditing deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing> : null}
             </div>
           )
@@ -98,7 +98,8 @@ Content.propTypes = {
   date: PropTypes.number,
   content: PropTypes.string,
   setDeletedCount: PropTypes.func,
-  setBlocksUpdated: PropTypes.func
+  setBlocksUpdated: PropTypes.func,
+  blocksUpdated: PropTypes.bool
 }
 
 export default Content

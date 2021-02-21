@@ -1,20 +1,26 @@
-import React, { useContext, useRef } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import PropTypes from 'prop-types'
 import AuthContext from '../context/auth-context'
 
 function ContentWriting (props) {
+  const [submitError, setSubmitError] = useState(false)
   const auth = useContext(AuthContext)
   const writingEl = useRef(null)
 
   const writingHandler = (event) => {
     event.preventDefault()
-    const writing = writingEl.current.value.split(/^(#\s.+)/m).slice(1)
+
+    let writing = writingEl.current.value.split(/^(#\s.+)$/m)
     const familyTimeStamp = Date.now()
 
     const labels = []
     const contents = []
-    // FIXME: If title is #Title, parsing fails.
-    if (writing[0].includes('#')) {
+
+    if (writing[0] === '') {
+      writing = writing.slice(1)
+    }
+
+    if ((/^#\s.+$/m).test(writing[0])) {
       writing.forEach(function (item, index) {
         if (index % 2 === 0) {
           labels.push(item)
@@ -23,7 +29,9 @@ function ContentWriting (props) {
         }
       })
     } else {
-      console.log('Found text out of the block!')
+      setSubmitError(true)
+      console.log(submitError)
+      return
     }
 
     labels.forEach(function (item, index) {

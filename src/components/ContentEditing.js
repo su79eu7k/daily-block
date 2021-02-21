@@ -1,23 +1,26 @@
-import React, { useContext, useRef } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import PropTypes from 'prop-types'
 import AuthContext from '../context/auth-context'
 
 function ContentEditing (props) {
+  const [submitError, setSubmitError] = useState(false)
   const auth = useContext(AuthContext)
   const editingEl = useRef(null)
 
   const editingHandler = (event) => {
     event.preventDefault()
 
-    props.deleteFamilyBlocks()
-
-    const editing = editingEl.current.value.split(/^(#\s.+)/m).slice(1)
+    let editing = editingEl.current.value.split(/^(#\s.+)$/m).slice(1)
     const familyTimeStamp = Date.now()
 
     const labels = []
     const contents = []
-    // FIXME: If title is #Title, parsing fails.
-    if (editing[0].includes('#')) {
+
+    if (editing[0] === '') {
+      editing = editing.slice(1)
+    }
+
+    if ((/^#\s.+$/m).test(editing[0])) {
       editing.forEach(function (item, index) {
         if (index % 2 === 0) {
           labels.push(item)
@@ -26,7 +29,9 @@ function ContentEditing (props) {
         }
       })
     } else {
-      console.log('Found text out of the block!')
+      setSubmitError(true)
+      console.log(submitError)
+      return
     }
 
     labels.forEach(function (item, index) {
@@ -56,6 +61,8 @@ function ContentEditing (props) {
       }).then(res => {
         return res.json()
       }).then(resData => {
+        props.setEdit(false)
+        props.deleteFamilyBlocks()
         props.setBlocksUpdated(false)
       }).catch(err => {
         console.log(err)
