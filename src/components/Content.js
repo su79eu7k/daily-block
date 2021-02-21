@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import AuthContext from '../context/auth-context'
 
 import LabelContext from '../context/label-context'
-import ContentWriting from './ContentWriting'
+import ContentEditing from './ContentEditing'
 
 function Content (props) {
   const [edit, setEdit] = useState(false)
@@ -84,7 +84,7 @@ function Content (props) {
               <div><button onClick={() => { setEdit(!edit) }}>Edit</button></div>
               <div><button onClick={() => { deleteFamilyBlocks() }}>Delete</button></div>
               <div>{props.content}</div>
-              { edit ? <ContentWriting>{formValue}</ContentWriting> : null}
+              { edit ? <ContentEditing deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated}>{formValue}</ContentEditing> : null}
             </div>
           )
         }
@@ -97,7 +97,8 @@ Content.propTypes = {
   label: PropTypes.string,
   date: PropTypes.number,
   content: PropTypes.string,
-  setDeletedCount: PropTypes.func
+  setDeletedCount: PropTypes.func,
+  setBlocksUpdated: PropTypes.func
 }
 
 export default Content

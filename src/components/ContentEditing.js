@@ -2,20 +2,23 @@ import React, { useContext, useRef } from 'react'
 import PropTypes from 'prop-types'
 import AuthContext from '../context/auth-context'
 
-function ContentWriting (props) {
+function ContentEditing (props) {
   const auth = useContext(AuthContext)
-  const writingEl = useRef(null)
+  const editingEl = useRef(null)
 
-  const writingHandler = (event) => {
+  const editingHandler = (event) => {
     event.preventDefault()
-    const writing = writingEl.current.value.split(/^(#\s.+)/m).slice(1)
+
+    props.deleteFamilyBlocks()
+
+    const editing = editingEl.current.value.split(/^(#\s.+)/m).slice(1)
     const familyTimeStamp = Date.now()
 
     const labels = []
     const contents = []
     // FIXME: If title is #Title, parsing fails.
-    if (writing[0].includes('#')) {
-      writing.forEach(function (item, index) {
+    if (editing[0].includes('#')) {
+      editing.forEach(function (item, index) {
         if (index % 2 === 0) {
           labels.push(item)
         } else {
@@ -62,13 +65,13 @@ function ContentWriting (props) {
 
   return (
     <div>
-      <h2>Writing</h2>
-      <form onSubmit={writingHandler}>
+      <h2>Editing</h2>
+      <form onSubmit={editingHandler}>
         <div>
           <label>Markdown</label>
         </div>
         <div>
-          <textarea ref={writingEl} defaultValue={props.children}></textarea>
+          <textarea ref={editingEl} defaultValue={props.children}></textarea>
         </div>
         <div>
           <input type="submit" value="Submit"></input>
@@ -78,9 +81,10 @@ function ContentWriting (props) {
   )
 }
 
-ContentWriting.propTypes = {
+ContentEditing.propTypes = {
   setBlocksUpdated: PropTypes.func,
-  children: PropTypes.string
+  children: PropTypes.string,
+  deleteFamilyBlocks: PropTypes.func
 }
 
-export default ContentWriting
+export default ContentEditing
