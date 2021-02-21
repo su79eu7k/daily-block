@@ -74,6 +74,7 @@ function ContentEditing (props) {
           <textarea ref={editingEl} defaultValue={props.children}></textarea>
         </div>
         <div>
+          <button onClick={() => props.setEdit(false)}>Cancel</button>
           <input type="submit" value="Submit"></input>
         </div>
       </form>
@@ -84,7 +85,9 @@ function ContentEditing (props) {
 ContentEditing.propTypes = {
   setBlocksUpdated: PropTypes.func,
   children: PropTypes.string,
-  deleteFamilyBlocks: PropTypes.func
+  deleteFamilyBlocks: PropTypes.func,
+  setEdit: PropTypes.func,
+  edit: PropTypes.bool
 }
 
 export default ContentEditing
