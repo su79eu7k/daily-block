@@ -84,7 +84,7 @@ function Content (props) {
               <div><button onClick={() => { setEdit(!edit) }}>Edit</button></div>
               <div><button onClick={() => { deleteFamilyBlocks() }}>Delete</button></div>
               <div>{props.content}</div>
-              { edit ? <ContentEditing deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated}>{formValue}</ContentEditing> : null}
+              { edit ? <ContentEditing deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing> : null}
             </div>
           )
         }
