@@ -54,7 +54,7 @@ function ContentsRolling (props) {
       <div>
         <h2>Rolling</h2>
         {blocks.map((block, index) => {
-          return <Content key={index} label={block.label} date={block.date} content={block.content} setDeletedCount={setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} />
+          return <Content key={index} label={block.label} date={block.date} content={block.content} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} />
         })}
       </div>
     </LabelContext.Provider>

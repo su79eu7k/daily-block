@@ -61,6 +61,7 @@ function ContentEditing (props) {
       }).then(res => {
         return res.json()
       }).then(resData => {
+        props.setEdit(false)
         props.deleteFamilyBlocks()
         props.setBlocksUpdated(false)
       }).catch(err => {

@@ -43,7 +43,7 @@ function Content (props) {
     setFormValue(familyBlock.join('').replaceAll('\\n', '\n'))
   }
 
-  useEffect(fetchFamilyBlocks, [])
+  useEffect(fetchFamilyBlocks, [props.blocksUpdated])
 
   const deleteFamilyBlocks = async () => {
     const requestBody = {
@@ -98,7 +98,8 @@ Content.propTypes = {
   date: PropTypes.number,
   content: PropTypes.string,
   setDeletedCount: PropTypes.func,
-  setBlocksUpdated: PropTypes.func
+  setBlocksUpdated: PropTypes.func,
+  blocksUpdated: PropTypes.bool
 }
 
 export default Content
