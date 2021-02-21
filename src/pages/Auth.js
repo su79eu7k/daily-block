@@ -7,8 +7,9 @@ function Auth () {
   const emailEl = useRef(null)
   const passwordEl = useRef(null)
 
-  const authHandler = (event, context) => {
+  const authHandler = (event, authContext) => {
     event.preventDefault()
+
     const email = emailEl.current.value
     const password = passwordEl.current.value
 
@@ -48,7 +49,10 @@ function Auth () {
     }).then(res => {
       return res.json()
     }).then(resData => {
-      context.login(resData.data.login.token, resData.data.login.userId, resData.data.login.tokenExpiration)
+      const resAuth = resData.data.login
+      const auth = { token: resAuth.token, uesrId: resAuth.userId, tokenExpiration: resAuth.tokenExpiration }
+      authContext.login(...Object.values(auth))
+      localStorage.setItem('auth', JSON.stringify(auth))
     }).catch(err => {
       console.log(err)
     })
@@ -57,11 +61,12 @@ function Auth () {
   return (
     <AuthContext.Consumer>
       {
-        (auth) => {
+        (authContext) => {
           return (
             <div>
               <h1>{isSignUp ? 'Sign Up' : 'Sign In'}</h1>
-              <form onSubmit={(e) => { authHandler(e, auth) }}>
+              {/* TODO: ID/PW validation feature. */}
+              <form onSubmit={(e) => { authHandler(e, authContext) }}>
                 <div>
                   <label>
                     E-Mail:

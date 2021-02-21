@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
 import NavBar from './components/NavBar'
@@ -14,12 +14,22 @@ function App () {
     tokenExpiration: null
   })
 
+  const checkLoggedInfo = () => {
+    const loggedInfo = JSON.parse(localStorage.getItem('auth'))
+    if (loggedInfo) {
+      setAuth(loggedInfo)
+    }
+  }
+
+  useEffect(checkLoggedInfo, [])
+
   const login = (token, userId, tokenExpiration) => {
     setAuth({ token: token, userId: userId, tokenExpiration: tokenExpiration })
   }
 
   const logout = () => {
     setAuth({ token: null, userId: null, tokenExpiration: null })
+    localStorage.removeItem('auth')
   }
 
   return (
