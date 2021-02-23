@@ -39,6 +39,11 @@ function ContentsRolling (props) {
     }).then(res => {
       return res.json()
     }).then(resData => {
+      if (resData.errors[0].statusCode === 401) {
+        auth.logout()
+        return
+      }
+
       setBlocks([...resData.data.blocks])
       props.setBlocksUpdated(true)
     }).catch(err => {

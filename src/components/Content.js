@@ -35,6 +35,11 @@ function Content (props) {
     })
     const resData = await res.json()
 
+    if (resData.errors[0].statusCode === 401) {
+      auth.logout()
+      return
+    }
+
     const familyBlock = []
     resData.data.familyBlocks.forEach((e) => {
       familyBlock.push(e.label + e.content)
