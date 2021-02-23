@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import AuthContext from '../context/auth-context'
+import ReactMarkdown from 'react-markdown'
 
+import AuthContext from '../context/auth-context'
 import LabelContext from '../context/label-context'
 import ContentEditing from './ContentEditing'
 
@@ -90,7 +91,11 @@ function Content (props) {
               <div>{localDateTimeString}</div>
               <div><button onClick={() => { setEdit(!edit) }}>Edit</button></div>
               <div><button onClick={() => { deleteFamilyBlocks() }}>Delete</button></div>
-              <div>{props.content.replaceAll('\\n', '\n')}</div>
+              <div>
+              <ReactMarkdown>
+                {props.content.replaceAll('\\n', '\n')}
+              </ReactMarkdown>
+              </div>
               { edit ? <ContentEditing deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing> : null}
             </div>
           )
