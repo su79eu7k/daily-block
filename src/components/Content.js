@@ -35,9 +35,11 @@ function Content (props) {
     })
     const resData = await res.json()
 
-    if (resData.errors[0].statusCode === 401) {
-      auth.logout()
-      return
+    if (resData.errors) {
+      if (resData.errors[0].statusCode === 401) {
+        auth.logout()
+        return
+      }
     }
 
     const familyBlock = []

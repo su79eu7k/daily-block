@@ -61,9 +61,11 @@ function ContentEditing (props) {
       }).then(res => {
         return res.json()
       }).then(resData => {
-        if (resData.errors[0].statusCode === 401) {
-          auth.logout()
-          return
+        if (resData.errors) {
+          if (resData.errors[0].statusCode === 401) {
+            auth.logout()
+            return
+          }
         }
 
         props.setEdit(false)
