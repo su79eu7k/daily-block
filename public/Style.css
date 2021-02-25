@@ -1,3 +1,118 @@
-html, body {
-  margin: 0px;
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+html {
+  font-size: 16px;
+  height: 100vh;
+  background-color: #f2f0ea;
+  font-family: 'Roboto', sans-serif;
+  color: #453d37;
+}
+
+#app-bar {
+  height: 3rem;
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+  justify-items: end;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+#logo {
+  font-size: 1.5rem;
+  font-family: 'Lobster', cursive;
+  color: #453d37;
+}
+
+#nav ul li {
+  display: inline-flex;
+}
+
+#nav ul li button {
+  height: 2rem;
+  width: 5rem;
+  border-width: 0px;
+  background-color: transparent;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  color: #58524e;
+}
+
+#nav ul li button:hover {
+  color: #453d37;
+}
+
+.card--container {
+  display: grid;
+  grid-template-rows: 1fr 3fr 1fr;
+  grid-template-columns: minmax();
+  row-gap: 1rem;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  /* background-color: #ffffff; */
+}
+
+.card--header {
+  font-size: 1rem;
+}
+
+.card--body {
+  font-size: .7rem;
+}
+
+.card--body div.card--elem label {
+  display: block;
+}
+
+.card--body div.card--elem input {
+  display: block;
+  border-radius: .3rem;
+  border-width: 0px;
+  border-color: #58524e;
+  padding:.7rem;
+  margin-bottom: .7rem;
+  background-color: #ffffff;
+}
+
+.card--body div.card--elem input:focus {
+  outline: none;
+}
+
+.card--footer input, button {
+  height: 2rem;
+  width: 5rem;
+  border-width: 0px;
+  border-radius: 1rem;
+  background-color: #58524e;
+  font-family: 'Roboto', sans-serif;
+  font-size: .7rem;
+  color: #ffffff;
+}
+
+.card--footer input:hover, button:hover {
+  background-color: #58524e;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
 }
