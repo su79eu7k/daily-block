@@ -7,15 +7,15 @@ function NavBar () {
   return (
     <header>
       <div>
-        <h1>DB</h1>
+        Daily Blocks
       </div>
       <nav>
         <ul>
           <li>
-            <NavLink to='/'>Home</NavLink>
+            <NavLink to='/'><button>Home</button></NavLink>
           </li>
           {!auth.token && <li>
-            <NavLink to='/login'>Login</NavLink>
+            <NavLink to='/login'><button>Login</button></NavLink>
           </li>}
           {auth.token && <li>
             <button onClick={auth.logout}>Logout</button>

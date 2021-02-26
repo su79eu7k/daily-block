@@ -64,25 +64,29 @@ function Auth () {
         (authContext) => {
           return (
             <div>
-              <h1>{isSignUp ? 'Sign Up' : 'Sign In'}</h1>
+              <div>{isSignUp ? 'Sign Up' : 'Sign In'}</div>
               {/* TODO: ID/PW validation feature. */}
-              <form onSubmit={(e) => { authHandler(e, authContext) }}>
-                <div>
-                  <label>
-                    E-Mail:
-                  </label>
-                  <input type="email" ref={emailEl} />
-                </div>
-                <div>
-                  <label>
-                    Password:
-                  </label>
-                  <input type="password" ref={passwordEl} />
-                </div>
+              <div>
+                <form onSubmit={(e) => { authHandler(e, authContext) }}>
+                  <div>
+                    <label>
+                      E-Mail
+                    </label>
+                    <input type="email" ref={emailEl} />
+                  </div>
+                  <div>
+                    <label>
+                      Password
+                    </label>
+                    <input type="password" ref={passwordEl} />
+                  </div>
+                </form>
+              </div>
+              <div>
                 <input type="submit" value="Submit" />
                 {isSignUp && <button type="button" onClick={() => setIsSignUp(false)}>Sign In</button>}
                 {!isSignUp && <button type="button" onClick={() => setIsSignUp(true)}>Sign Up</button>}
-              </form>
+              </div>
             </div>
           )
         }
