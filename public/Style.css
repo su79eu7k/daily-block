@@ -3,6 +3,11 @@
    License: none (public domain)
 */
 
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -19,11 +24,35 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 html {
-  font-size: 16px;
-  height: 100vh;
   background-color: #f2f0ea;
   font-family: 'Roboto', sans-serif;
   color: #453d37;
@@ -53,66 +82,80 @@ html {
   width: 5rem;
   border-width: 0px;
   background-color: transparent;
-  font-family: 'Roboto', sans-serif;
+  font-family: inherit;
   font-size: 1rem;
   color: #58524e;
 }
 
 #nav ul li button:hover {
   color: #453d37;
+  cursor: pointer;
 }
 
 .card--container {
   display: grid;
-  grid-template-rows: 1fr 3fr 1fr;
-  grid-template-columns: minmax();
-  row-gap: 1rem;
+  grid-template-rows: 1fr 4fr;
+  grid-template-columns: 1fr;
+  row-gap: .3rem;
   justify-content: center;
   align-content: center;
   justify-items: center;
   align-items: center;
-  /* background-color: #ffffff; */
 }
 
 .card--header {
-  font-size: 1rem;
+  width: 80%;
+  text-align: center;
 }
 
 .card--body {
+  width: 80%;
   font-size: .7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card--body div.card--elem label {
   display: block;
 }
 
-.card--body div.card--elem input {
-  display: block;
+.card--body div.card--elem input,
+.card--body div.card--elem textarea {
+  width: auto;
   border-radius: .3rem;
   border-width: 0px;
   border-color: #58524e;
   padding:.7rem;
-  margin-bottom: .7rem;
-  background-color: #ffffff;
+  margin-bottom: 1rem;
+  background-color:white;
 }
 
-.card--body div.card--elem input:focus {
+.card--body div.card--elem input:focus,
+.card--body div.card--elem textarea:focus {
   outline: none;
 }
 
-.card--footer input, button {
+.card--body--footer {
+  display: flex;
+  justify-content: center;
+}
+
+.card--body--footer input, 
+.card--body--footer button {
   height: 2rem;
-  width: 5rem;
+  width: 4rem;
+  margin: .3rem;
   border-width: 0px;
   border-radius: 1rem;
   background-color: #58524e;
-  font-family: 'Roboto', sans-serif;
+  font-family: inherit;
   font-size: .7rem;
   color: #ffffff;
 }
 
-.card--footer input:hover, button:hover {
-  background-color: #58524e;
-  font-family: 'Roboto', sans-serif;
-  color: #ffffff;
+.card--body--footer input:hover, 
+.card--body--footer button:hover {
+  background-color: #453d37;
+  cursor: pointer;
 }

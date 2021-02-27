@@ -80,13 +80,13 @@ function Auth () {
                     </label>
                     <input type="password" ref={passwordEl} />
                   </div>
-                </form>
-              </div>
-                  <div className='card--footer'>
+                  <div className='card--body--footer'>
                     <input type="submit" value="Submit" />
                     {isSignUp && <button type="button" onClick={() => setIsSignUp(false)}>Sign In</button>}
                     {!isSignUp && <button type="button" onClick={() => setIsSignUp(true)}>Sign Up</button>}
                   </div>
+                </form>
+              </div>
             </div>
           )
         }
