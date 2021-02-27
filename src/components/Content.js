@@ -84,14 +84,14 @@ function Content (props) {
       {
         (context) => {
           return (
-            <div>
-              <div onClick={() => {
+            <div className='content--container'>
+              <div className='content--label' onClick={() => {
                 props.label === context.currentLabel ? context.changeLabel('') : context.changeLabel(props.label)
               }}>{props.label}</div>
-              <div>{localDateTimeString}</div>
-              <div><button onClick={() => { setEdit(!edit) }}>Edit</button></div>
-              <div><button onClick={() => { deleteFamilyBlocks() }}>Delete</button></div>
-              <div>
+              <div className='content--timestamp'>{localDateTimeString}</div>
+              <div className='content--button'><button onClick={() => { setEdit(!edit) }}>Edit</button></div>
+              <div className='content--button'><button onClick={() => { deleteFamilyBlocks() }}>Delete</button></div>
+              <div className='content--markdown'>
               <ReactMarkdown>
                 {props.content.replaceAll('\\n', '\n')}
               </ReactMarkdown>
