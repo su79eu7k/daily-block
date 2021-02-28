@@ -80,6 +80,7 @@ function ContentWriting (props) {
             <textarea ref={writingEl} defaultValue={props.children}></textarea>
           </div>
           <div className='card--auth--body--footer'>
+            <button onClick={() => props.setWrite(false)}>Cancel</button>
             <input type="submit" value="Submit"></input>
           </div>
         </form>
@@ -90,7 +91,8 @@ function ContentWriting (props) {
 
 ContentWriting.propTypes = {
   setBlocksUpdated: PropTypes.func,
-  children: PropTypes.string
+  children: PropTypes.string,
+  setWrite: PropTypes.bool
 }
 
 export default ContentWriting
