@@ -1,3 +1,5 @@
+/* Global */
+
 html, body {
   margin: 0;
 	padding: 0;
@@ -9,7 +11,9 @@ html, body {
   color: #453d37;
 }
 
-#app-bar {
+/* NavBar */
+
+#nav-bar {
   height: 3rem;
   display: flex;
   flex-flow: row wrap;
@@ -51,58 +55,49 @@ html, body {
   cursor: pointer;
 }
 
-.card--container {
-  display: grid;
-  grid-template-rows: 1fr 4fr;
-  grid-template-columns: 1fr;
-  row-gap: .3rem;
-  justify-content: center;
-  align-content: center;
-  justify-items: center;
-  align-items: center;
-}
+/* Auth */
 
-.card--header {
-  width: 80%;
-  text-align: center;
-}
-
-.card--body {
-  width: 80%;
-  font-size: .7rem;
+.card--auth--container {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
   align-items: center;
 }
 
-.card--body div.card--elem label {
+.card--auth--header {
+}
+
+.card--auth--body {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.card--auth--body--elem label {
+  font-size: .7rem;
   display: block;
 }
 
-.card--body div.card--elem input,
-.card--body div.card--elem textarea {
-  width: auto;
+.card--auth--body--elem input,
+.card--auth--body--elem textarea {
   border-radius: .3rem;
   border-width: 0px;
   border-color: #58524e;
   padding:.7rem;
-  margin-bottom: 1rem;
   background-color:white;
 }
 
-.card--body div.card--elem input:focus,
-.card--body div.card--elem textarea:focus {
+.card--auth--body--elem input:focus,
+.card--auth--body--elem textarea:focus {
   outline: none;
 }
 
-.card--body--footer {
+.card--auth--body--footer {
   display: flex;
+  flex-flow: row nowrap;
   justify-content: center;
 }
 
-.card--body--footer input, 
-.card--body--footer button {
+.card--auth--body--footer input, 
+.card--auth--body--footer button {
   height: 2rem;
   width: 4rem;
   margin: .3rem;
@@ -114,12 +109,27 @@ html, body {
   color: #ffffff;
 }
 
-.card--body--footer input:hover, 
-.card--body--footer button:hover {
+.card--auth--body--footer input:hover, 
+.card--auth--body--footer button:hover {
   background-color: #453d37;
   cursor: pointer;
 }
 
-.content--container {
-  min-width: 300px;
+/* Rolling */
+
+.card--container--rolling {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.card--header--rolling {
+  text-align: center;
+}
+
+.card--body--rolling {
+  font-size: .7rem;
+  display: flex;
+  flex-flow: column nowrap;
+  /* align-items:flex-start; */
 }

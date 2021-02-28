@@ -5,7 +5,7 @@ import AuthContext from '../context/auth-context'
 function NavBar () {
   const auth = useContext(AuthContext)
   return (
-    <header id='app-bar'>
+    <header id='nav-bar'>
       <div id='logo'>
         Daily Blocks
       </div>
