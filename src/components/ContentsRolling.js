@@ -46,7 +46,20 @@ function ContentsRolling (props) {
         }
       }
 
-      setBlocks([...resData.data.blocks])
+      const blocks = resData.data.blocks
+      const blocksWithSiblingRemark = []
+      let lastElemTimeStamp = null
+      blocks.forEach(elem => {
+        if (elem.date === lastElemTimeStamp) {
+          elem.isSibling = true
+        } else {
+          elem.isSibling = false
+        }
+        blocksWithSiblingRemark.push(elem)
+        lastElemTimeStamp = elem.date
+      })
+
+      setBlocks(blocksWithSiblingRemark)
       props.setBlocksUpdated(true)
     }).catch(err => {
       console.log(err)
@@ -61,7 +74,7 @@ function ContentsRolling (props) {
       <div>
         <h2>Rolling</h2>
         {blocks.map((block, index) => {
-          return <Content key={index} label={block.label} date={block.date} content={block.content} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} />
+          return <Content key={index} label={block.label} date={block.date} content={block.content} isSibling={block.isSibling} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} />
         })}
       </div>
     </LabelContext.Provider>
