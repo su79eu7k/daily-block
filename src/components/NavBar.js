@@ -5,17 +5,17 @@ import AuthContext from '../context/auth-context'
 function NavBar () {
   const auth = useContext(AuthContext)
   return (
-    <header>
-      <div>
-        <h1>DB</h1>
+    <header id='nav-bar'>
+      <div id='logo'>
+        Daily Blocks
       </div>
-      <nav>
+      <nav id='nav'>
         <ul>
           <li>
-            <NavLink to='/'>Home</NavLink>
+            <NavLink to='/'><button>Home</button></NavLink>
           </li>
           {!auth.token && <li>
-            <NavLink to='/login'>Login</NavLink>
+            <NavLink to='/login'><button>Login</button></NavLink>
           </li>}
           {auth.token && <li>
             <button onClick={auth.logout}>Logout</button>

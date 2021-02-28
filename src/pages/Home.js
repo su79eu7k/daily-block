@@ -7,7 +7,6 @@ function Home () {
 
   return (
     <React.Fragment>
-      <h1>Home</h1>
       {auth.token && <Contents />}
     </React.Fragment>
   )
