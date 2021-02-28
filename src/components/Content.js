@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import ReactMarkdown from 'react-markdown'
+import { MdDeleteForever, MdEdit } from 'react-icons/md'
 
 import AuthContext from '../context/auth-context'
 import LabelContext from '../context/label-context'
@@ -77,7 +78,7 @@ function Content (props) {
     props.setDeletedCount(resData.data.deleteFamilyBlocks.deletedCount)
   }
 
-  const localDateTimeString = new Date(props.date).toLocaleDateString('ko-kr') + ' ' + new Date(props.date).toLocaleTimeString('ko-kr')
+  const localDateTimeString = new Date(props.date).toLocaleDateString('en-us') + ' ' + new Date(props.date).toLocaleTimeString('en-us')
 
   return (
     <LabelContext.Consumer>
@@ -86,15 +87,15 @@ function Content (props) {
           return (
             <div className='card--content--container'>
               {!props.isSibling && <div className='card--content--info'>
-                <div id='ts'>{localDateTimeString}</div>
+                <div className='timestamp'>{localDateTimeString}</div>
                 <ul>
-                <li><button onClick={() => { setEdit(!edit) }}>Edit</button></li>
-                <li><button onClick={() => { deleteFamilyBlocks() }}>Delete</button></li>
+                <li><div className='icon-btn' onClick={() => { setEdit(!edit) }}><MdEdit /></div></li>
+                <li><div className='icon-btn' onClick={() => { deleteFamilyBlocks() }}><MdDeleteForever /></div></li>
                 </ul>
               </div>}
               <div className='card--content--label' onClick={() => {
                 props.label === context.currentLabel ? context.changeLabel('') : context.changeLabel(props.label)
-              }}>{props.label}</div>
+              }}><h1>{props.label}</h1></div>
               <div className='card--content--content'>
                 <ReactMarkdown>
                   {props.content.replaceAll('\\n', '\n')}

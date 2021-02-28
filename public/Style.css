@@ -8,7 +8,7 @@ html, body {
   min-width: 300px;
   background-color: #f2f0ea;
   font-family: 'Roboto', sans-serif;
-  color: #453d37;
+  color: #443c36;
 }
 
 /* NavBar */
@@ -27,7 +27,7 @@ html, body {
   padding:0px;
   font-size: 1.3rem;
   font-family: 'Lobster', cursive;
-  color: #453d37;
+  color: #443c36;
 }
 
 #nav ul {
@@ -49,11 +49,11 @@ html, body {
   background-color: transparent;
   font-family: inherit;
   font-size: 1rem;
-  color: #58524e;
+  color: #857e7a;
 }
 
 #nav ul li button:hover {
-  color: #453d37;
+  color: #443c36;
   cursor: pointer;
 }
 
@@ -84,7 +84,7 @@ html, body {
   min-width: 240px;
   border-radius: .3rem;
   border-width: 0px;
-  border-color: #58524e;
+  border-color: #857e7a;
   padding:.7rem;
   background-color:white;
 }
@@ -121,7 +121,7 @@ html, body {
   margin: .3rem;
   border-width: 0px;
   border-radius: 1rem;
-  background-color: #58524e;
+  background-color: #857e7a;
   font-family: inherit;
   font-size: .7rem;
   color: #ffffff;
@@ -129,7 +129,7 @@ html, body {
 
 .card--auth--body--footer input:hover, 
 .card--auth--body--footer button:hover {
-  background-color: #453d37;
+  background-color: #443c36;
   cursor: pointer;
 }
 
@@ -144,7 +144,7 @@ html, body {
 /* Content */
 
 .card--content--container {
-  min-width: 240px;
+  width: 240px;
   display: flex;
   flex-flow: column nowrap;
   align-items: stretch;
@@ -152,13 +152,13 @@ html, body {
 
 @media (min-width: 600px) {
   .card--content--container {
-    min-width: 480px;
+    width: 480px;
   }
 }
 
 @media (min-width: 900px) {
   .card--content--container {
-    min-width: 720px;
+    width: 720px;
   }
 }
 
@@ -166,6 +166,9 @@ html, body {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  border-bottom: 1px solid;
+  border-color: #443c36;
+  margin-top: 3rem;
 }
 
 .card--content--info ul {
@@ -177,4 +180,25 @@ html, body {
 
 .card--content--info ul li {
   list-style-type: none;
+}
+
+.timestamp {
+  font-size: .9rem;
+}
+
+.icon-btn {
+  margin-left: 5px;
+  font-size: 1.1rem;
+}
+
+.card--content--label {
+  color:#443c36;
+}
+
+/* Markdown */
+
+blockquote {
+  border-left: 5px solid;
+  border-color: #443c36;
+  padding-left: 10px;
 }
