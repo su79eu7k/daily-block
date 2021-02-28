@@ -78,20 +78,22 @@ function ContentEditing (props) {
   }
 
   return (
-    <div>
-      <h2>Editing</h2>
+    <div className='card--auth--container'>
+      <div className='card--auth--header'>Editing</div>
+      <div className='card--auth--body'>
       <form onSubmit={editingHandler}>
-        <div>
+        <div className='card--auth--body--elem'>
           <label>Markdown</label>
         </div>
-        <div>
+        <div className='card--auth--body--elem'>
           <textarea ref={editingEl} defaultValue={props.children}></textarea>
         </div>
-        <div>
+        <div className='card--auth--body--footer'>
           <button onClick={() => props.setEdit(false)}>Cancel</button>
           <input type="submit" value="Submit"></input>
         </div>
       </form>
+      </div>
     </div>
   )
 }
