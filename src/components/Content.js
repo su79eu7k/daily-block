@@ -84,17 +84,17 @@ function Content (props) {
       {
         (context) => {
           return (
-            <div className='content--container'>
-              <div className='content--label' onClick={() => {
+            <div>
+              {!props.isSibling && <><div>{localDateTimeString}</div>
+                <div><button onClick={() => { setEdit(!edit) }}>Edit</button></div>
+                <div><button onClick={() => { deleteFamilyBlocks() }}>Delete</button></div></>}
+              <div onClick={() => {
                 props.label === context.currentLabel ? context.changeLabel('') : context.changeLabel(props.label)
               }}>{props.label}</div>
-              <div className='content--timestamp'>{localDateTimeString}</div>
-              <div className='content--button'><button onClick={() => { setEdit(!edit) }}>Edit</button></div>
-              <div className='content--button'><button onClick={() => { deleteFamilyBlocks() }}>Delete</button></div>
-              <div className='content--markdown'>
-              <ReactMarkdown>
-                {props.content.replaceAll('\\n', '\n')}
-              </ReactMarkdown>
+              <div>
+                <ReactMarkdown>
+                  {props.content.replaceAll('\\n', '\n')}
+                </ReactMarkdown>
               </div>
               { edit ? <ContentEditing deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing> : null}
             </div>
@@ -109,6 +109,7 @@ Content.propTypes = {
   label: PropTypes.string,
   date: PropTypes.number,
   content: PropTypes.string,
+  isSibling: PropTypes.bool,
   setDeletedCount: PropTypes.func,
   setBlocksUpdated: PropTypes.func,
   blocksUpdated: PropTypes.bool

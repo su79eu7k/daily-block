@@ -46,7 +46,20 @@ function ContentsRolling (props) {
         }
       }
 
-      setBlocks([...resData.data.blocks])
+      const blocks = resData.data.blocks
+      const blocksWithSiblingRemark = []
+      let lastElemTimeStamp = null
+      blocks.forEach(elem => {
+        if (elem.date === lastElemTimeStamp) {
+          elem.isSibling = true
+        } else {
+          elem.isSibling = false
+        }
+        blocksWithSiblingRemark.push(elem)
+        lastElemTimeStamp = elem.date
+      })
+
+      setBlocks(blocksWithSiblingRemark)
       props.setBlocksUpdated(true)
     }).catch(err => {
       console.log(err)
@@ -58,13 +71,11 @@ function ContentsRolling (props) {
   // FIXME: Rendering order should be fixed.
   return (
     <LabelContext.Provider value={label}>
-      <div className='card--rolling--container'>
-        <div className='card--rolling--header'>Rolling</div>
-        <div className='card--rolling--body'>
-          {blocks.map((block, index) => {
-            return <Content key={index} label={block.label} date={block.date} content={block.content} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} />
-          })}
-        </div>
+      <div>
+        <h2>Rolling</h2>
+        {blocks.map((block, index) => {
+          return <Content key={index} label={block.label} date={block.date} content={block.content} isSibling={block.isSibling} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} />
+        })}
       </div>
     </LabelContext.Provider>
   )
