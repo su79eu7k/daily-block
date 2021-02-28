@@ -69,17 +69,17 @@ function ContentWriting (props) {
   }
 
   return (
-    <div className='card--container'>
-      <div className='card--header'>Writing</div>
-      <div className='card--body'>
+    <div className='card--auth--container'>
+      <div className='card--auth--header'>Writing</div>
+      <div className='card--auth--body'>
         <form onSubmit={writingHandler}>
-          <div className='card--elem'>
+          <div className='card--auth--body--elem'>
             <label>Markdown</label>
           </div>
-          <div className='card--elem'>
+          <div className='card--auth--body--elem'>
             <textarea ref={writingEl} defaultValue={props.children}></textarea>
           </div>
-          <div className='card--body--footer'>
+          <div className='card--auth--body--footer'>
             <input type="submit" value="Submit"></input>
           </div>
         </form>

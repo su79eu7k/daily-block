@@ -58,9 +58,9 @@ function ContentsRolling (props) {
   // FIXME: Rendering order should be fixed.
   return (
     <LabelContext.Provider value={label}>
-      <div className='card--container--rolling'>
-        <div className='card--header--rolling'>Rolling</div>
-        <div className='card--body--rolling'>
+      <div className='card--rolling--container'>
+        <div className='card--rolling--header'>Rolling</div>
+        <div className='card--rolling--body'>
           {blocks.map((block, index) => {
             return <Content key={index} label={block.label} date={block.date} content={block.content} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} />
           })}
