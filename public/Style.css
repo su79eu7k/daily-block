@@ -140,5 +140,17 @@ html, body {
 /* Content */
 
 .card--content--container {
-  min-width: 100%;
+  min-width: 240px;
+}
+
+@media (min-width: 600px) {
+  .card--content--container {
+    min-width: 480px;
+  }
+}
+
+@media (min-width: 900px) {
+  .card--content--container {
+    min-width: 720px;
+  }
 }
