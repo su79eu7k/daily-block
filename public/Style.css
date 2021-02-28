@@ -64,22 +64,39 @@ html, body {
 }
 
 .card--auth--body {
+  min-width: 240px;
+  width: 80%;
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
 }
 
 .card--auth--body--elem label {
+  min-width: 240px;
   font-size: .7rem;
   display: block;
 }
 
 .card--auth--body--elem input,
 .card--auth--body--elem textarea {
+  min-width: 240px;
   border-radius: .3rem;
   border-width: 0px;
   border-color: #58524e;
   padding:.7rem;
   background-color:white;
+}
+
+@media (min-width: 600px) {
+  .card--auth--body--elem textarea {
+    min-width: 480px;
+  }
+}
+
+@media (min-width: 900px) {
+  .card--auth--body--elem textarea {
+    min-width: 720px;
+  }
 }
 
 .card--auth--body--elem input:focus,
@@ -120,9 +137,8 @@ html, body {
   align-items: center;
 }
 
-.card--rolling--body {
-  font-size: .7rem;
-  display: flex;
-  flex-flow: column nowrap;
-}
+/* Content */
 
+.card--content--container {
+  min-width: 100%;
+}

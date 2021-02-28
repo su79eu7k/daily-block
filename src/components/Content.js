@@ -84,7 +84,7 @@ function Content (props) {
       {
         (context) => {
           return (
-            <div>
+            <div className='card--content--container'>
               {!props.isSibling && <><div>{localDateTimeString}</div>
                 <div><button onClick={() => { setEdit(!edit) }}>Edit</button></div>
                 <div><button onClick={() => { deleteFamilyBlocks() }}>Delete</button></div></>}
