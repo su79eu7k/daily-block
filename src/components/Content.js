@@ -85,13 +85,17 @@ function Content (props) {
         (context) => {
           return (
             <div className='card--content--container'>
-              {!props.isSibling && <><div>{localDateTimeString}</div>
-                <div><button onClick={() => { setEdit(!edit) }}>Edit</button></div>
-                <div><button onClick={() => { deleteFamilyBlocks() }}>Delete</button></div></>}
-              <div onClick={() => {
+              {!props.isSibling && <div className='card--content--info'>
+                <div id='ts'>{localDateTimeString}</div>
+                <ul>
+                <li><button onClick={() => { setEdit(!edit) }}>Edit</button></li>
+                <li><button onClick={() => { deleteFamilyBlocks() }}>Delete</button></li>
+                </ul>
+              </div>}
+              <div className='card--content--label' onClick={() => {
                 props.label === context.currentLabel ? context.changeLabel('') : context.changeLabel(props.label)
               }}>{props.label}</div>
-              <div>
+              <div className='card--content--content'>
                 <ReactMarkdown>
                   {props.content.replaceAll('\\n', '\n')}
                 </ReactMarkdown>

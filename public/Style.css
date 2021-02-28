@@ -31,6 +31,8 @@ html, body {
 }
 
 #nav ul {
+  margin: 0px;
+  padding: 0px;
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-end;
@@ -90,12 +92,14 @@ html, body {
 @media (min-width: 600px) {
   .card--auth--body--elem textarea {
     min-width: 480px;
+    min-height: 270px;
   }
 }
 
 @media (min-width: 900px) {
   .card--auth--body--elem textarea {
     min-width: 720px;
+    min-height: 405px;
   }
 }
 
@@ -141,6 +145,9 @@ html, body {
 
 .card--content--container {
   min-width: 240px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
 }
 
 @media (min-width: 600px) {
@@ -153,4 +160,21 @@ html, body {
   .card--content--container {
     min-width: 720px;
   }
+}
+
+.card--content--info {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.card--content--info ul {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.card--content--info ul li {
+  list-style-type: none;
 }
