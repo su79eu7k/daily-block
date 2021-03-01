@@ -85,6 +85,7 @@ function Content (props) {
         (context) => {
           return (
             <div className='card--content--container'>
+              { edit ? <ContentEditing deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing> : null}
               {!props.isSibling && <div className='card--content--info'>
                 <div className='timestamp'>{localDateTimeString}</div>
                 <ul>
@@ -100,7 +101,6 @@ function Content (props) {
                   {props.content.replaceAll('\\n', '\n')}
                 </ReactMarkdown>
               </div>
-              { edit ? <ContentEditing deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing> : null}
             </div>
           )
         }
