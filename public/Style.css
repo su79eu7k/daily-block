@@ -4,11 +4,17 @@ html, body {
   margin: 0;
 	padding: 0;
 	border: 0;
-  font: inherit;
   min-width: 300px;
   background-color: #f2f0ea;
   font-family: 'Roboto', sans-serif;
-  color: #443c36;
+  color: #857e7a;
+  font-size: 14px;
+}
+
+@media (min-width: 600px) {
+  html, body {
+    font-size: 16px;
+  }
 }
 
 /* NavBar */
@@ -65,18 +71,37 @@ html, body {
   align-items: center;
 }
 
+.card--auth--header {
+  margin: 3vh auto;
+}
+
 .card--auth--body {
   min-width: 240px;
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+}
+
+.card--auth--body--elem {
+  margin: 1rem auto;
 }
 
 .card--auth--body--elem label {
   min-width: 240px;
   font-size: .7rem;
   display: block;
+}
+
+.card--auth--body--elem label a,
+.card--auth--body--elem label a:visited {
+  color: #857e7a;
+  text-decoration: none;
+}
+
+.card--auth--body--elem label a:hover {
+  color: #443c36;
+  text-decoration: underline;
 }
 
 .card--auth--body--elem input,
@@ -109,6 +134,7 @@ html, body {
 }
 
 .card--auth--body--footer {
+  margin: 1rem auto;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
@@ -132,6 +158,54 @@ html, body {
   background-color: #443c36;
   cursor: pointer;
 }
+
+/* Content's' */
+.card--contents--container {
+  margin: auto auto;
+  width: 240px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.card--contents--container button#write {
+  margin-top: 3vh;
+  height: 3rem;
+  width: 240px;
+  padding: 0px;
+  border-width: 0px;
+  border-radius: .3rem;
+  background-color: #443c36;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.card--contents--container button#write:hover {
+  cursor: pointer;
+  background-color: #857e7a;
+}
+
+@media (min-width: 600px) {
+  .card--contents--container {
+    width: 480px;
+  }
+
+  .card--contents--container button#write{
+    width: 480px;
+  }
+}
+
+@media (min-width: 900px) {
+  .card--contents--container {
+    width: 720px;
+  }
+
+  .card--contents--container button#write{
+    width: 720px;
+  }
+}
+
 
 /* Rolling */
 
@@ -167,8 +241,8 @@ html, body {
   flex-flow: row nowrap;
   justify-content: space-between;
   border-bottom: 1px solid;
-  border-color: #443c36;
-  margin-top: 3rem;
+  border-color: #857e7a;
+  margin-top: 6vh;
 }
 
 .card--content--info ul {
@@ -184,21 +258,37 @@ html, body {
 
 .timestamp {
   font-size: .9rem;
+  color: #857e7a;
 }
 
 .icon-btn {
   margin-left: 5px;
-  font-size: 1.1rem;
+  font-size: .9rem;
+  color:#857e7a;
+}
+
+.icon-btn:hover {
+  cursor: pointer;
+  color: #443c36;
 }
 
 .card--content--label {
-  color:#443c36;
+  color: #443c36;
+}
+
+.card--content--content {
+  color: #857e7a;
 }
 
 /* Markdown */
 
+h1:hover {
+  cursor: pointer;
+}
+
 blockquote {
   border-left: 5px solid;
-  border-color: #443c36;
+  border-color: #857e7a;
   padding-left: 10px;
+  font-size: .9rem;
 }

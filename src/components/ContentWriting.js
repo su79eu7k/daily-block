@@ -70,11 +70,11 @@ function ContentWriting (props) {
 
   return (
     <div className='card--auth--container'>
-      <div className='card--auth--header'>Writing</div>
+      <div className='card--auth--header'>New</div>
       <div className='card--auth--body'>
         <form onSubmit={writingHandler}>
           <div className='card--auth--body--elem'>
-            <label>Markdown</label>
+            <label><a href='https://www.markdownguide.org/basic-syntax/' target='_blank' rel='noreferrer'>Markdown</a></label>
           </div>
           <div className='card--auth--body--elem'>
             <textarea ref={writingEl} defaultValue={props.children}></textarea>
