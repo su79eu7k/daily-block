@@ -8,7 +8,7 @@ function Contents () {
 
   return (
     <div className='card--contents--container'>
-      {!write && <button type="button" onClick={() => setWrite(true)}>Write</button>}
+      {!write && <button id='write' type='button' onClick={() => setWrite(true)}>New</button>}
       {write && <ContentWriting setWrite={setWrite} setBlocksUpdated={setBlocksUpdated} />}
       <ContentsRolling blocksUpdated={blocksUpdated} setBlocksUpdated={setBlocksUpdated} />
     </div>

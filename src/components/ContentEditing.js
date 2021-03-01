@@ -79,7 +79,7 @@ function ContentEditing (props) {
 
   return (
     <div className='card--auth--container'>
-      <div className='card--auth--header'>Editing</div>
+      <div className='card--auth--header'>Edit</div>
       <div className='card--auth--body'>
       <form onSubmit={editingHandler}>
         <div className='card--auth--body--elem'>
