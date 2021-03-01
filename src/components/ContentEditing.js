@@ -84,8 +84,6 @@ function ContentEditing (props) {
       <form onSubmit={editingHandler}>
         <div className='card--auth--body--elem'>
           <label>Markdown</label>
-        </div>
-        <div className='card--auth--body--elem'>
           <textarea ref={editingEl} defaultValue={props.children}></textarea>
         </div>
         <div className='card--auth--body--footer'>

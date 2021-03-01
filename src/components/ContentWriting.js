@@ -75,8 +75,6 @@ function ContentWriting (props) {
         <form onSubmit={writingHandler}>
           <div className='card--auth--body--elem'>
             <label><a href='https://www.markdownguide.org/basic-syntax/' target='_blank' rel='noreferrer'>Markdown</a></label>
-          </div>
-          <div className='card--auth--body--elem'>
             <textarea ref={writingEl} defaultValue={props.children}></textarea>
           </div>
           <div className='card--auth--body--footer'>
