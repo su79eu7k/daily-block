@@ -21,6 +21,7 @@ function ContentsRolling (props) {
       query: `
         query {
           blocks(label: "${label.currentLabel}") {
+            _id
             label
             content
             date
@@ -72,8 +73,8 @@ function ContentsRolling (props) {
   return (
     <LabelContext.Provider value={label}>
       <div className='card--rolling--container'>
-        {blocks.map((block, index) => {
-          return <Content key={index} label={block.label} date={block.date} content={block.content} isSibling={block.isSibling} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} />
+        {blocks.map((block) => {
+          return <Content key={block._id} label={block.label} date={block.date} content={block.content} isSibling={block.isSibling} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} />
         })}
       </div>
     </LabelContext.Provider>
