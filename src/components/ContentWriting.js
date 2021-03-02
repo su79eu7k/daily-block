@@ -61,6 +61,7 @@ function ContentWriting (props) {
       }).then(res => {
         return res.json()
       }).then(resData => {
+        props.setWrite(false)
         props.setBlocksUpdated(false)
       }).catch(err => {
         console.log(err)
@@ -90,7 +91,7 @@ function ContentWriting (props) {
 ContentWriting.propTypes = {
   setBlocksUpdated: PropTypes.func,
   children: PropTypes.string,
-  setWrite: PropTypes.bool
+  setWrite: PropTypes.func
 }
 
 export default ContentWriting
