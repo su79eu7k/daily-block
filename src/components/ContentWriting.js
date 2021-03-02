@@ -61,6 +61,7 @@ function ContentWriting (props) {
       }).then(res => {
         return res.json()
       }).then(resData => {
+        props.setWrite(false)
         props.setBlocksUpdated(false)
       }).catch(err => {
         console.log(err)
@@ -75,8 +76,6 @@ function ContentWriting (props) {
         <form onSubmit={writingHandler}>
           <div className='card--auth--body--elem'>
             <label><a href='https://www.markdownguide.org/basic-syntax/' target='_blank' rel='noreferrer'>Markdown</a></label>
-          </div>
-          <div className='card--auth--body--elem'>
             <textarea ref={writingEl} defaultValue={props.children}></textarea>
           </div>
           <div className='card--auth--body--footer'>
@@ -92,7 +91,7 @@ function ContentWriting (props) {
 ContentWriting.propTypes = {
   setBlocksUpdated: PropTypes.func,
   children: PropTypes.string,
-  setWrite: PropTypes.bool
+  setWrite: PropTypes.func
 }
 
 export default ContentWriting
