@@ -73,7 +73,6 @@ function Content (props) {
       }
     })
     const resData = await res.json()
-
     props.setDeletedCount(resData.data.deleteFamilyBlocks.deletedCount)
   }
 
@@ -85,7 +84,7 @@ function Content (props) {
         (context) => {
           return (
             <div className='card--content--container'>
-              { edit ? <ContentEditing deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing> : null}
+              { edit ? <ContentEditing date={props.date} deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing> : null}
               {!props.isSibling && <div className='card--content--info'>
                 <div className='timestamp'>{localDateTimeString}</div>
                 <ul>

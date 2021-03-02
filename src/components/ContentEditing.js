@@ -7,11 +7,11 @@ function ContentEditing (props) {
   const auth = useContext(AuthContext)
   const editingEl = useRef(null)
 
-  const editingHandler = (event) => {
+  const editingHandler = async (event) => {
     event.preventDefault()
+    await props.deleteFamilyBlocks()
 
     let editing = editingEl.current.value.split(/^(#\s.+)$/m).slice(1)
-    const familyTimeStamp = Date.now()
 
     const labels = []
     const contents = []
@@ -37,12 +37,11 @@ function ContentEditing (props) {
     labels.forEach(function (item, index) {
       const label = labels[index]
       const content = contents[index].replaceAll(/\n/g, '\\n')
-      const date = familyTimeStamp
 
       const requestBody = {
         query: `
           mutation {
-            createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${date}}) {
+            createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${props.date}}) {
               label
               content
               date
@@ -69,7 +68,6 @@ function ContentEditing (props) {
         }
 
         props.setEdit(false)
-        props.deleteFamilyBlocks()
         props.setBlocksUpdated(false)
       }).catch(err => {
         console.log(err)
@@ -97,6 +95,7 @@ function ContentEditing (props) {
 }
 
 ContentEditing.propTypes = {
+  date: PropTypes.number,
   setBlocksUpdated: PropTypes.func,
   children: PropTypes.string,
   deleteFamilyBlocks: PropTypes.func,
