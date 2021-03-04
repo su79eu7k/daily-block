@@ -49,14 +49,33 @@ const ModalInner = styled.div`
   font-size: 12px;
 `
 
+const StyledButton = styled.button`
+  height: 2rem;
+  width: 4rem;
+  margin: .3rem;
+  border-width: 0px;
+  border-radius: 1rem;
+  background-color: #857e7a;
+  font-family: inherit;
+  font-size: .7rem;
+  color: #ffffff;
+
+  &:hover {
+    background-color: #443c36;
+    cursor: pointer;
+  }
+`
+
 function Modal (props) {
   return (
     <Portal container='modal-root'>
       <ModalOverlay visible={props.visible} />
       <ModalWrapper visible={props.visible}>
         <ModalInner>
-          <p>Sibling articles of this day will be deleted as well...!</p>
+          <p>Delete sibling articles...!</p>
           <p>Are you sure about this?</p>
+          <StyledButton>Cancel</StyledButton>
+          <StyledButton>Delete</StyledButton>
         </ModalInner>
       </ModalWrapper>
     </Portal>
