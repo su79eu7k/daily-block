@@ -10,7 +10,7 @@ function Portal (props) {
 
 Portal.propTypes = {
   container: PropTypes.string,
-  children: PropTypes.element
+  children: PropTypes.node
 }
 
 export default Portal

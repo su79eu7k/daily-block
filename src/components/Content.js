@@ -9,14 +9,14 @@ import ContentEditing from './ContentEditing'
 import Modal from './Modal'
 
 function Content (props) {
-  const [doubleCheck, setDoubleCheck] = useState(false)
+  const [visible, setVisible] = useState(false)
   const [edit, setEdit] = useState(false)
   const [formValue, setFormValue] = useState(null)
 
   const auth = useContext(AuthContext)
 
   const handleDelete = () => {
-    setDoubleCheck(true)
+    setVisible(true)
   }
 
   const fetchFamilyBlocks = async () => {
@@ -95,9 +95,8 @@ function Content (props) {
                 <div className='timestamp'>{localDateTimeString}</div>
                 <ul>
                 <li><div className='icon-btn' onClick={() => { setEdit(!edit) }}>Edit</div></li>
-                {/* <li><div className='icon-btn' onClick={() => { deleteFamilyBlocks() }}>Delete</div></li> */}
                 <li><div className='icon-btn' onClick={() => { handleDelete() }}>Delete</div></li>
-                <Modal visible={doubleCheck}></Modal>
+                <Modal visible={ visible } setVisible={ setVisible } deleteFamilyBlocks={ deleteFamilyBlocks }></Modal>
                 </ul>
               </div>}
               <div className='card--content--label' onClick={() => {

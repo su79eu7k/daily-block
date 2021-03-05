@@ -38,15 +38,19 @@ const ModalInner = styled.div`
   transform: translateY(-50%);
   margin: 0 auto;
   width: 180px;
-  height: 180px;
+  height: 120px;
   @media (min-width: 600px) {
     width: 240px;
-    height: 200px;
+    height: 160px;
     padding: 1.5rem;
     font-size: 16px;
   }
   padding: 1.5rem;
   font-size: 12px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 `
 
 const StyledButton = styled.button`
@@ -72,10 +76,11 @@ function Modal (props) {
       <ModalOverlay visible={props.visible} />
       <ModalWrapper visible={props.visible}>
         <ModalInner>
-          <p>Delete sibling articles...!</p>
-          <p>Are you sure about this?</p>
-          <StyledButton>Cancel</StyledButton>
-          <StyledButton>Delete</StyledButton>
+          <p>Are you sure you want to delete all sibling items...?</p>
+          <div>
+          <StyledButton onClick={ () => { props.setVisible(false) } }>Cancel</StyledButton>
+          <StyledButton onClick={ () => { props.deleteFamilyBlocks() } }>Delete</StyledButton>
+          </div>
         </ModalInner>
       </ModalWrapper>
     </Portal>
@@ -83,7 +88,9 @@ function Modal (props) {
 }
 
 Modal.propTypes = {
-  visible: PropTypes.bool
+  visible: PropTypes.bool,
+  setVisible: PropTypes.func,
+  deleteFamilyBlocks: PropTypes.func
 }
 
 export default Modal
