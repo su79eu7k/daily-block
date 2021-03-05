@@ -6,12 +6,18 @@ import ReactMarkdown from 'react-markdown'
 import AuthContext from '../context/auth-context'
 import LabelContext from '../context/label-context'
 import ContentEditing from './ContentEditing'
+import Modal from './Modal'
 
 function Content (props) {
+  const [visible, setVisible] = useState(false)
   const [edit, setEdit] = useState(false)
   const [formValue, setFormValue] = useState(null)
 
   const auth = useContext(AuthContext)
+
+  const handleDelete = () => {
+    setVisible(true)
+  }
 
   const fetchFamilyBlocks = async () => {
     const requestBody = {
@@ -89,7 +95,8 @@ function Content (props) {
                 <div className='timestamp'>{localDateTimeString}</div>
                 <ul>
                 <li><div className='icon-btn' onClick={() => { setEdit(!edit) }}>Edit</div></li>
-                <li><div className='icon-btn' onClick={() => { deleteFamilyBlocks() }}>Delete</div></li>
+                <li><div className='icon-btn' onClick={() => { handleDelete() }}>Delete</div></li>
+                <Modal visible={ visible } setVisible={ setVisible } deleteFamilyBlocks={ deleteFamilyBlocks }></Modal>
                 </ul>
               </div>}
               <div className='card--content--label' onClick={() => {

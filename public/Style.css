@@ -104,9 +104,18 @@ html, body {
   text-decoration: underline;
 }
 
-.card--auth--body--elem input,
+.card--auth--body--elem input {
+  min-width: 240px;
+  border-radius: .3rem;
+  border-width: 0px;
+  border-color: #857e7a;
+  padding:.7rem;
+  background-color:white;
+}
+
 .card--auth--body--elem textarea {
   min-width: 240px;
+  min-height: 200px;
   border-radius: .3rem;
   border-width: 0px;
   border-color: #857e7a;
@@ -160,6 +169,7 @@ html, body {
 }
 
 /* Content's' */
+
 .card--contents--container {
   margin: auto auto;
   width: 240px;
