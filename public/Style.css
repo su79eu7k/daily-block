@@ -125,6 +125,7 @@ html, body {
   border-color: #857e7a;
   padding:.7rem;
   background-color:white;
+  resize: vertical;
 }
 
 @media (min-width: 600px) {
