@@ -63,6 +63,10 @@ html, body {
   cursor: pointer;
 }
 
+#nav ul li button:focus {
+  outline: none;
+}
+
 /* Auth */
 
 .card--auth--container {
@@ -121,6 +125,7 @@ html, body {
   border-color: #857e7a;
   padding:.7rem;
   background-color:white;
+  resize: vertical;
 }
 
 @media (min-width: 600px) {
@@ -168,6 +173,11 @@ html, body {
   cursor: pointer;
 }
 
+.card--auth--body--footer input:focus, 
+.card--auth--body--footer button:focus {
+  outline: none;
+}
+
 /* Content's' */
 
 .card--contents--container {
@@ -194,6 +204,10 @@ html, body {
 .card--contents--container button#write:hover {
   cursor: pointer;
   background-color: #857e7a;
+}
+
+.card--contents--container button#write:focus {
+  outline: none;
 }
 
 @media (min-width: 600px) {
