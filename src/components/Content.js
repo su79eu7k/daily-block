@@ -15,8 +15,13 @@ function Content (props) {
 
   const auth = useContext(AuthContext)
 
+  const handleTouchMove = (e) => {
+    e.preventDefault()
+  }
+
   const handleDelete = () => {
     document.body.style.overflow = 'hidden'
+    document.body.addEventListener('touchmove', handleTouchMove, false)
     setVisible(true)
   }
 

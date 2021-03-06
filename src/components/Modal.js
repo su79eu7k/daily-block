@@ -71,8 +71,13 @@ const StyledButton = styled.button`
 `
 
 function Modal (props) {
+  const handleTouchMove = (e) => {
+    e.preventDefault()
+  }
+
   const handleCancel = () => {
     document.body.style.overflow = 'auto'
+    document.body.addEventListener('touchmove', handleTouchMove, false)
     props.setVisible(false)
   }
 
