@@ -68,12 +68,21 @@ const StyledButton = styled.button`
     background-color: #443c36;
     cursor: pointer;
   }
+
+  &:focus {
+    outline: none;
+  }
 `
 
 function Modal (props) {
   const handleCancel = () => {
-    props.handleModalCancel()
+    props.allowScroll()
     props.setVisible(false)
+  }
+
+  const handleDelete = () => {
+    props.allowScroll()
+    props.deleteFamilyBlocks()
   }
 
   return (
@@ -84,7 +93,7 @@ function Modal (props) {
           <p>Are you sure you want to delete all sibling items...?</p>
           <div>
             <StyledButton onClick={() => { handleCancel() }}>Cancel</StyledButton>
-            <StyledButton onClick={() => { props.deleteFamilyBlocks() }}>Delete</StyledButton>
+            <StyledButton onClick={() => { handleDelete() }}>Delete</StyledButton>
           </div>
         </ModalInner>
       </ModalWrapper>
@@ -96,7 +105,7 @@ Modal.propTypes = {
   visible: PropTypes.bool,
   setVisible: PropTypes.func,
   deleteFamilyBlocks: PropTypes.func,
-  handleModalCancel: PropTypes.func
+  allowScroll: PropTypes.func
 }
 
 export default Modal
