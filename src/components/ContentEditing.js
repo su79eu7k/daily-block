@@ -39,14 +39,16 @@ function ContentEditing (props) {
     for (let index = 0; index < labels.length; index++) {
       const label = labels[index]
       const content = contents[index].replaceAll(/\n/g, '\\n')
+      const sn = index
 
       const requestBody = {
         query: `
           mutation {
-            createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${props.date}}) {
+            createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${props.date}, sn: ${sn}}) {
               label
               content
               date
+              sn
             }
           }
         `

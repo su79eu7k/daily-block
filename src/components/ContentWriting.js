@@ -38,14 +38,16 @@ function ContentWriting (props) {
       const label = labels[index]
       const content = contents[index].replaceAll(/\n/g, '\\n')
       const date = familyTimeStamp
+      const sn = index
 
       const requestBody = {
         query: `
           mutation {
-            createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${date}}) {
+            createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${date}, sn: ${sn}}) {
               label
               content
               date
+              sn
             }
           }
         `
