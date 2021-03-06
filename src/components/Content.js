@@ -16,6 +16,7 @@ function Content (props) {
   const auth = useContext(AuthContext)
 
   const handleDelete = () => {
+    document.body.style.overflow = 'hidden'
     setVisible(true)
   }
 
