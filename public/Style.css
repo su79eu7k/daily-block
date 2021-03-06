@@ -63,6 +63,10 @@ html, body {
   cursor: pointer;
 }
 
+#nav ul li button:focus {
+  outline: none;
+}
+
 /* Auth */
 
 .card--auth--container {
