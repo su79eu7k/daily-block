@@ -19,19 +19,23 @@ function Content (props) {
     e.preventDefault()
   }, [])
 
-  const handleDelete = () => {
+  const rejectScroll = () => {
     document.body.style.overflow = 'hidden'
     document.body.addEventListener('touchmove', handleTouchMove, {
       capture: false,
       once: false,
       passive: false
     })
-    setVisible(true)
   }
 
-  const handleModalCancel = () => {
+  const allowScroll = () => {
     document.body.style.overflow = 'auto'
     document.body.removeEventListener('touchmove', handleTouchMove)
+  }
+
+  const handleDelete = () => {
+    rejectScroll()
+    setVisible(true)
   }
 
   const fetchFamilyBlocks = async () => {
@@ -111,7 +115,7 @@ function Content (props) {
                 <ul>
                 <li><div className='icon-btn' onClick={() => { setEdit(!edit) }}>Edit</div></li>
                 <li><div className='icon-btn' onClick={() => { handleDelete() }}>Delete</div></li>
-                <Modal visible={ visible } setVisible={ setVisible } deleteFamilyBlocks={ deleteFamilyBlocks } handleModalCancel={ handleModalCancel }></Modal>
+                <Modal visible={ visible } setVisible={ setVisible } deleteFamilyBlocks={ deleteFamilyBlocks } allowScroll={ allowScroll }></Modal>
                 </ul>
               </div>}
               <div className='card--content--label' onClick={() => {
