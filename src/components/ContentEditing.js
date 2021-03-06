@@ -39,32 +39,33 @@ function ContentEditing (props) {
     for (let index = 0; index < labels.length; index++) {
       const label = labels[index]
       const content = contents[index].replaceAll(/\n/g, '\\n')
+      const sn = index
 
       const requestBody = {
         query: `
           mutation {
-            createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${props.date}}) {
+            createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${props.date}, sn: ${sn}}) {
               label
               content
               date
+              sn
             }
           }
         `
       }
 
-      const res = await fetch('http://localhost:8000/graphql', {
+      fetch('http://localhost:8000/graphql', {
         method: 'POST',
         body: JSON.stringify(requestBody),
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + auth.token
         }
+      }).then(res => {
+        return res.json()
+      }).catch(err => {
+        console.log(err)
       })
-      const resData = await res.json()
-
-      if (resData.errors) {
-        console.log(resData.errors)
-      }
     }
 
     props.setEdit(false)
