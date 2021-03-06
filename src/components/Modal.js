@@ -71,13 +71,8 @@ const StyledButton = styled.button`
 `
 
 function Modal (props) {
-  const handleTouchMove = (e) => {
-    e.preventDefault()
-  }
-
   const handleCancel = () => {
-    document.body.style.overflow = 'auto'
-    document.body.addEventListener('touchmove', handleTouchMove, false)
+    props.handleModalCancel()
     props.setVisible(false)
   }
 
@@ -100,7 +95,8 @@ function Modal (props) {
 Modal.propTypes = {
   visible: PropTypes.bool,
   setVisible: PropTypes.func,
-  deleteFamilyBlocks: PropTypes.func
+  deleteFamilyBlocks: PropTypes.func,
+  handleModalCancel: PropTypes.func
 }
 
 export default Modal
