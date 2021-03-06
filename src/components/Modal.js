@@ -71,6 +71,11 @@ const StyledButton = styled.button`
 `
 
 function Modal (props) {
+  const handleCancel = () => {
+    props.handleModalCancel()
+    props.setVisible(false)
+  }
+
   return (
     <Portal container='modal-root'>
       <ModalOverlay visible={props.visible} />
@@ -78,8 +83,8 @@ function Modal (props) {
         <ModalInner>
           <p>Are you sure you want to delete all sibling items...?</p>
           <div>
-          <StyledButton onClick={ () => { props.setVisible(false) } }>Cancel</StyledButton>
-          <StyledButton onClick={ () => { props.deleteFamilyBlocks() } }>Delete</StyledButton>
+            <StyledButton onClick={() => { handleCancel() }}>Cancel</StyledButton>
+            <StyledButton onClick={() => { props.deleteFamilyBlocks() }}>Delete</StyledButton>
           </div>
         </ModalInner>
       </ModalWrapper>
@@ -90,7 +95,8 @@ function Modal (props) {
 Modal.propTypes = {
   visible: PropTypes.bool,
   setVisible: PropTypes.func,
-  deleteFamilyBlocks: PropTypes.func
+  deleteFamilyBlocks: PropTypes.func,
+  handleModalCancel: PropTypes.func
 }
 
 export default Modal
