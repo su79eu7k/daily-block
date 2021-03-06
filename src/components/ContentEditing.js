@@ -1,13 +1,15 @@
 import React, { useState, useContext, useRef } from 'react'
 import PropTypes from 'prop-types'
+
 import AuthContext from '../context/auth-context'
+import LabelContext from '../context/label-context'
 
 function ContentEditing (props) {
   const [submitError, setSubmitError] = useState(false)
   const auth = useContext(AuthContext)
   const editingEl = useRef(null)
 
-  const editingHandler = async (event) => {
+  const editingHandler = async (event, labelContext) => {
     event.preventDefault()
     await props.deleteFamilyBlocks()
 
@@ -34,7 +36,7 @@ function ContentEditing (props) {
       return
     }
 
-    labels.forEach(function (item, index) {
+    for (let index = 0; index < labels.length; index++) {
       const label = labels[index]
       const content = contents[index].replaceAll(/\n/g, '\\n')
 
@@ -50,47 +52,53 @@ function ContentEditing (props) {
         `
       }
 
-      fetch('http://localhost:8000/graphql', {
+      const res = await fetch('http://localhost:8000/graphql', {
         method: 'POST',
         body: JSON.stringify(requestBody),
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + auth.token
         }
-      }).then(res => {
-        return res.json()
-      }).then(resData => {
-        if (resData.errors) {
-          if (resData.errors[0].statusCode === 401) {
-            auth.logout()
-            return
-          }
-        }
-
-        props.setEdit(false)
-        props.setBlocksUpdated(false)
-      }).catch(err => {
-        console.log(err)
       })
-    })
+      const resData = await res.json()
+
+      if (resData.errors) {
+        console.log(resData.errors)
+      }
+    }
+
+    props.setEdit(false)
+    props.setBlocksUpdated(false)
+
+    if (labelContext.label !== '' && !labels.includes(labelContext.label)) {
+      labelContext.changeLabel('')
+    }
   }
 
   return (
-    <div className='card--auth--container'>
-      <div className='card--auth--header'>Edit</div>
-      <div className='card--auth--body'>
-      <form onSubmit={editingHandler}>
-        <div className='card--auth--body--elem'>
-          <label>Markdown</label>
-          <textarea ref={editingEl} defaultValue={props.children}></textarea>
-        </div>
-        <div className='card--auth--body--footer'>
-          <button onClick={() => props.setEdit(false)}>Cancel</button>
-          <input type="submit" value="Submit"></input>
-        </div>
-      </form>
-      </div>
-    </div>
+    <LabelContext.Consumer>
+      {
+        (context) => {
+          return (
+            <div className='card--auth--container'>
+              <div className='card--auth--header'>Edit</div>
+              <div className='card--auth--body'>
+              <form onSubmit={(e) => { editingHandler(e, context) }}>
+                <div className='card--auth--body--elem'>
+                  <label>Markdown</label>
+                  <textarea ref={editingEl} defaultValue={props.children}></textarea>
+                </div>
+                <div className='card--auth--body--footer'>
+                  <button onClick={() => props.setEdit(false)}>Cancel</button>
+                  <input type="submit" value="Submit"></input>
+                </div>
+              </form>
+              </div>
+            </div>
+          )
+        }
+      }
+    </LabelContext.Consumer>
   )
 }
 
