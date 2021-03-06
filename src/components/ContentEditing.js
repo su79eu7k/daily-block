@@ -54,19 +54,18 @@ function ContentEditing (props) {
         `
       }
 
-      const res = await fetch('http://localhost:8000/graphql', {
+      fetch('http://localhost:8000/graphql', {
         method: 'POST',
         body: JSON.stringify(requestBody),
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + auth.token
         }
+      }).then(res => {
+        return res.json()
+      }).catch(err => {
+        console.log(err)
       })
-      const resData = await res.json()
-
-      if (resData.errors) {
-        console.log(resData.errors)
-      }
     }
 
     props.setEdit(false)
