@@ -1,13 +1,15 @@
 import React, { useState, useContext, useRef } from 'react'
 import PropTypes from 'prop-types'
+
 import AuthContext from '../context/auth-context'
+import LabelContext from '../context/label-context'
 
 function ContentEditing (props) {
   const [submitError, setSubmitError] = useState(false)
   const auth = useContext(AuthContext)
   const editingEl = useRef(null)
 
-  const editingHandler = async (event) => {
+  const editingHandler = async (event, labelContext) => {
     event.preventDefault()
     await props.deleteFamilyBlocks()
 
@@ -73,24 +75,36 @@ function ContentEditing (props) {
         console.log(err)
       })
     })
+
+    if (labelContext.label !== '' && !labels.includes(labelContext.label)) {
+      labelContext.changeLabel('')
+    }
   }
 
   return (
-    <div className='card--auth--container'>
-      <div className='card--auth--header'>Edit</div>
-      <div className='card--auth--body'>
-      <form onSubmit={editingHandler}>
-        <div className='card--auth--body--elem'>
-          <label>Markdown</label>
-          <textarea ref={editingEl} defaultValue={props.children}></textarea>
-        </div>
-        <div className='card--auth--body--footer'>
-          <button onClick={() => props.setEdit(false)}>Cancel</button>
-          <input type="submit" value="Submit"></input>
-        </div>
-      </form>
-      </div>
-    </div>
+    <LabelContext.Consumer>
+      {
+        (context) => {
+          return (
+            <div className='card--auth--container'>
+              <div className='card--auth--header'>Edit</div>
+              <div className='card--auth--body'>
+              <form onSubmit={(e) => { editingHandler(e, context) }}>
+                <div className='card--auth--body--elem'>
+                  <label>Markdown</label>
+                  <textarea ref={editingEl} defaultValue={props.children}></textarea>
+                </div>
+                <div className='card--auth--body--footer'>
+                  <button onClick={() => props.setEdit(false)}>Cancel</button>
+                  <input type="submit" value="Submit"></input>
+                </div>
+              </form>
+              </div>
+            </div>
+          )
+        }
+      }
+    </LabelContext.Consumer>
   )
 }
 
