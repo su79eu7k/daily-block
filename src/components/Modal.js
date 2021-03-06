@@ -68,6 +68,10 @@ const StyledButton = styled.button`
     background-color: #443c36;
     cursor: pointer;
   }
+
+  &:focus {
+    outline: none;
+  }
 `
 
 function Modal (props) {
