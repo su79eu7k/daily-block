@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
 import ReactMarkdown from 'react-markdown'
@@ -15,8 +15,23 @@ function Content (props) {
 
   const auth = useContext(AuthContext)
 
+  const handleTouchMove = useCallback((e) => {
+    e.preventDefault()
+  }, [])
+
   const handleDelete = () => {
+    document.body.style.overflow = 'hidden'
+    document.body.addEventListener('touchmove', handleTouchMove, {
+      capture: false,
+      once: false,
+      passive: false
+    })
     setVisible(true)
+  }
+
+  const handleModalCancel = () => {
+    document.body.style.overflow = 'auto'
+    document.body.removeEventListener('touchmove', handleTouchMove)
   }
 
   const fetchFamilyBlocks = async () => {
@@ -96,7 +111,7 @@ function Content (props) {
                 <ul>
                 <li><div className='icon-btn' onClick={() => { setEdit(!edit) }}>Edit</div></li>
                 <li><div className='icon-btn' onClick={() => { handleDelete() }}>Delete</div></li>
-                <Modal visible={ visible } setVisible={ setVisible } deleteFamilyBlocks={ deleteFamilyBlocks }></Modal>
+                <Modal visible={ visible } setVisible={ setVisible } deleteFamilyBlocks={ deleteFamilyBlocks } handleModalCancel={ handleModalCancel }></Modal>
                 </ul>
               </div>}
               <div className='card--content--label' onClick={() => {
