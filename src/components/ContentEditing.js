@@ -36,7 +36,7 @@ function ContentEditing (props) {
       return
     }
 
-    labels.forEach(function (item, index) {
+    for (let index = 0; index < labels.length; index++) {
       const label = labels[index]
       const content = contents[index].replaceAll(/\n/g, '\\n')
 
@@ -52,29 +52,23 @@ function ContentEditing (props) {
         `
       }
 
-      fetch('http://localhost:8000/graphql', {
+      const res = await fetch('http://localhost:8000/graphql', {
         method: 'POST',
         body: JSON.stringify(requestBody),
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + auth.token
         }
-      }).then(res => {
-        return res.json()
-      }).then(resData => {
-        if (resData.errors) {
-          if (resData.errors[0].statusCode === 401) {
-            auth.logout()
-            return
-          }
-        }
-
-        props.setEdit(false)
-        props.setBlocksUpdated(false)
-      }).catch(err => {
-        console.log(err)
       })
-    })
+      const resData = await res.json()
+
+      if (resData.errors) {
+        console.log(resData.errors)
+      }
+    }
+
+    props.setEdit(false)
+    props.setBlocksUpdated(false)
 
     if (labelContext.label !== '' && !labels.includes(labelContext.label)) {
       labelContext.changeLabel('')

@@ -7,7 +7,7 @@ function ContentWriting (props) {
   const auth = useContext(AuthContext)
   const writingEl = useRef(null)
 
-  const writingHandler = (event) => {
+  const writingHandler = async (event) => {
     event.preventDefault()
 
     let writing = writingEl.current.value.split(/^(#\s.+)$/m)
@@ -34,7 +34,7 @@ function ContentWriting (props) {
       return
     }
 
-    labels.forEach(function (item, index) {
+    for (let index = 0; index < labels.length; index++) {
       const label = labels[index]
       const content = contents[index].replaceAll(/\n/g, '\\n')
       const date = familyTimeStamp
@@ -51,22 +51,23 @@ function ContentWriting (props) {
         `
       }
 
-      fetch('http://localhost:8000/graphql', {
+      const res = await fetch('http://localhost:8000/graphql', {
         method: 'POST',
         body: JSON.stringify(requestBody),
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + auth.token
         }
-      }).then(res => {
-        return res.json()
-      }).then(resData => {
-        props.setWrite(false)
-        props.setBlocksUpdated(false)
-      }).catch(err => {
-        console.log(err)
       })
-    })
+      const resData = await res.json()
+
+      if (resData.errors) {
+        console.log(resData.errors)
+      }
+    }
+
+    props.setWrite(false)
+    props.setBlocksUpdated(false)
   }
 
   return (
