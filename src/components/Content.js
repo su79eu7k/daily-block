@@ -110,16 +110,16 @@ function Content (props) {
           return (
             <div className='card--content--container'>
               { edit ? <ContentEditing date={props.date} deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing> : null}
-              {!props.isSibling && <div className='card--content--info'>
+              { (context.currentLabel !== '' || (context.currentLabel === '' && props.sn === 0)) && <div className='card--content--info'>
                 <div className='timestamp'>{localeString}</div>
                 <ul>
                   <li><div className='icon-btn' onClick={() => { setEdit(!edit) }}>Edit</div></li>
                   <li><div className='icon-btn' onClick={() => { handleDelete() }}>Delete</div></li>
                   <Modal visible={visible} setVisible={setVisible} deleteFamilyBlocks={deleteFamilyBlocks} allowScroll={allowScroll}></Modal>
                 </ul>
-              </div>}
+              </div> }
               <div className='card--content--label' onClick={() => {
-                props.label === context.currentLabel ? context.changeLabel('') : context.changeLabel(props.label)
+                context.currentLabel === props.label ? context.changeLabel('') : context.changeLabel(props.label)
               }}><h1>{props.label}</h1></div>
               <div className='card--content--content'>
                 <ReactMarkdown>
@@ -138,7 +138,7 @@ Content.propTypes = {
   label: PropTypes.string,
   date: PropTypes.number,
   content: PropTypes.string,
-  isSibling: PropTypes.bool,
+  sn: PropTypes.number,
   setDeletedCount: PropTypes.func,
   setBlocksUpdated: PropTypes.func,
   blocksUpdated: PropTypes.bool

@@ -28,6 +28,7 @@ function ContentsRolling (props) {
               label
               content
               date
+              sn
             }
           }
         `
@@ -49,22 +50,8 @@ function ContentsRolling (props) {
             return
           }
         }
-
-        // TODO: This logic could be deleted because now we have serial number.
-        const blocks = resData.data.blocks
-        const blocksWithSiblingRemark = []
-        let lastElemTimeStamp = null
-        blocks.forEach(elem => {
-          if (elem.date === lastElemTimeStamp) {
-            elem.isSibling = true
-          } else {
-            elem.isSibling = false
-          }
-          blocksWithSiblingRemark.push(elem)
-          lastElemTimeStamp = elem.date
-        })
         setLoading(false)
-        setBlocks(blocksWithSiblingRemark)
+        setBlocks(resData.data.blocks)
         props.setBlocksUpdated(true)
       }).catch(err => {
         console.log(err)
@@ -78,7 +65,7 @@ function ContentsRolling (props) {
     <LabelContext.Provider value={label}>
       <div className='card--rolling--container'>
         { loading && <h1>Loading...</h1> }
-        { !loading && blocks.map((block) => { return <Content key={block._id} label={block.label} date={block.date} content={block.content} isSibling={block.isSibling} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} /> }) }
+        { !loading && blocks.map((block) => { return <Content key={block._id} label={block.label} date={block.date} sn={block.sn} content={block.content} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} /> }) }
       </div>
     </LabelContext.Provider>
   )
