@@ -11,6 +11,13 @@ function ContentEditing (props) {
 
   const editingHandler = async (event, labelContext) => {
     event.preventDefault()
+
+    // If submit button pushed but actually nothing has been Changed...
+    if (editingEl.current.value === props.children) {
+      props.setEdit(false)
+      return
+    }
+
     await props.deleteFamilyBlocks()
 
     let editing = editingEl.current.value.split(/^(#\s.+)$/m).slice(1)
