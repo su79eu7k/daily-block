@@ -101,7 +101,7 @@ function Content (props) {
     props.setDeletedCount(resData.data.deleteFamilyBlocks.deletedCount)
   }
 
-  const localDateTimeString = new Date(props.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+  const localeString = new Date(props.date).toLocaleString('en-US')
 
   return (
     <LabelContext.Consumer>
@@ -111,11 +111,11 @@ function Content (props) {
             <div className='card--content--container'>
               { edit ? <ContentEditing date={props.date} deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing> : null}
               {!props.isSibling && <div className='card--content--info'>
-                <div className='timestamp'>{localDateTimeString}</div>
+                <div className='timestamp'>{localeString}</div>
                 <ul>
-                <li><div className='icon-btn' onClick={() => { setEdit(!edit) }}>Edit</div></li>
-                <li><div className='icon-btn' onClick={() => { handleDelete() }}>Delete</div></li>
-                <Modal visible={ visible } setVisible={ setVisible } deleteFamilyBlocks={ deleteFamilyBlocks } allowScroll={ allowScroll }></Modal>
+                  <li><div className='icon-btn' onClick={() => { setEdit(!edit) }}>Edit</div></li>
+                  <li><div className='icon-btn' onClick={() => { handleDelete() }}>Delete</div></li>
+                  <Modal visible={visible} setVisible={setVisible} deleteFamilyBlocks={deleteFamilyBlocks} allowScroll={allowScroll}></Modal>
                 </ul>
               </div>}
               <div className='card--content--label' onClick={() => {
