@@ -69,7 +69,6 @@ function ContentsRolling (props) {
 
   useEffect(fetchBlocks, [label.currentLabel, props.blocksUpdated, deletedCount])
 
-  // FIXME: Rendering order should be fixed.
   return (
     <LabelContext.Provider value={label}>
       <div className='card--rolling--container'>
