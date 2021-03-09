@@ -20,9 +20,8 @@ function ContentsRolling (props) {
 
   const fetchBlocks = () => {
     setLoading(true)
-    setTimeout(() => {
-      const requestBody = {
-        query: `
+    const requestBody = {
+      query: `
           query {
             blocks(label: "${label.currentLabel}") {
               _id
@@ -33,31 +32,30 @@ function ContentsRolling (props) {
             }
           }
         `
-      }
+    }
 
-      fetch('http://localhost:8000/graphql', {
-        method: 'POST',
-        body: JSON.stringify(requestBody),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + auth.token
+    fetch('http://localhost:8000/graphql', {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + auth.token
+      }
+    }).then(res => {
+      return res.json()
+    }).then(resData => {
+      if (resData.errors) {
+        if (resData.errors[0].statusCode === 401) {
+          auth.logout()
+          return
         }
-      }).then(res => {
-        return res.json()
-      }).then(resData => {
-        if (resData.errors) {
-          if (resData.errors[0].statusCode === 401) {
-            auth.logout()
-            return
-          }
-        }
-        setLoading(false)
-        setBlocks(resData.data.blocks)
-        props.setBlocksUpdated(true)
-      }).catch(err => {
-        console.log(err)
-      })
-    }, 3000)
+      }
+      setLoading(false)
+      setBlocks(resData.data.blocks)
+      props.setBlocksUpdated(true)
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
   useEffect(fetchBlocks, [label.currentLabel, props.blocksUpdated, deletedCount])
@@ -65,8 +63,8 @@ function ContentsRolling (props) {
   return (
     <LabelContext.Provider value={label}>
       <div className='card--rolling--container'>
-        { loading && new Array(3).fill(1).map((_, i) => { return <Skeleton key={i} /> }) }
-        { !loading && blocks.map((block) => { return <Content key={block._id} label={block.label} date={block.date} sn={block.sn} content={block.content} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} /> }) }
+        {loading && new Array(3).fill(1).map((_, i) => { return <Skeleton key={i} /> })}
+        {!loading && blocks.map((block) => { return <Content key={block._id} label={block.label} date={block.date} sn={block.sn} content={block.content} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} /> })}
       </div>
     </LabelContext.Provider>
   )

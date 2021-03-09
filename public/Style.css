@@ -76,7 +76,7 @@ html, body {
 }
 
 .card--auth--header {
-  margin: 3vh auto;
+  margin: 2vh auto 0vh auto;
 }
 
 .card--auth--body {
