@@ -8,6 +8,8 @@ import LabelContext from '../context/label-context'
 import ContentEditing from './ContentEditing'
 import Modal from './Modal'
 
+import { useSpring, animated } from 'react-spring'
+
 function Content (props) {
   const [visible, setVisible] = useState(false)
   const [edit, setEdit] = useState(false)
@@ -103,13 +105,15 @@ function Content (props) {
 
   const localeString = new Date(props.date).toLocaleString('en-US')
 
+  const sprTextarea = useSpring({ from: { opacity: 0 }, to: { opacity: edit ? 1 : 0 } })
+
   return (
     <LabelContext.Consumer>
       {
         (context) => {
           return (
             <div className='card--content--container'>
-              { edit ? <ContentEditing date={props.date} deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing> : null}
+              <animated.div style={sprTextarea}>{ edit ? <ContentEditing date={props.date} deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing> : null}</animated.div>
               { (context.currentLabel !== '' || (context.currentLabel === '' && props.sn === 0)) && <div className='card--content--info'>
                 <div className='timestamp'>{localeString}</div>
                 <ul>
