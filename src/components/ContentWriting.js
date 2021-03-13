@@ -73,7 +73,6 @@ function ContentWriting (props) {
 
   return (
     <div className='card--auth--container'>
-      <div className='card--auth--header'>New</div>
       <div className='card--auth--body'>
         <form onSubmit={writingHandler}>
           <div className='card--auth--body--elem'>
@@ -81,7 +80,7 @@ function ContentWriting (props) {
             <textarea ref={writingEl} defaultValue={props.children}></textarea>
           </div>
           <div className='card--auth--body--footer'>
-            <button onClick={() => props.setWrite(false)}>Cancel</button>
+            <button type="button" onClick={() => props.setWrite(false)}>Cancel</button>
             <input type="submit" value="Submit"></input>
           </div>
         </form>
