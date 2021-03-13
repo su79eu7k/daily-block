@@ -8,6 +8,8 @@ import LabelContext from '../context/label-context'
 import ContentEditing from './ContentEditing'
 import Modal from './Modal'
 
+import { useTransition, animated } from 'react-spring'
+
 function Content (props) {
   const [visible, setVisible] = useState(false)
   const [edit, setEdit] = useState(false)
@@ -103,13 +105,25 @@ function Content (props) {
 
   const localeString = new Date(props.date).toLocaleString('en-US')
 
+  const transitions = useTransition(edit, null, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 }
+  })
+
   return (
     <LabelContext.Consumer>
       {
         (context) => {
           return (
             <div className='card--content--container'>
-              { edit ? <ContentEditing date={props.date} deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing> : null}
+              {
+                transitions.map(({ item, key, props }) => item &&
+                  <animated.div key={key} style={props}>
+                    <ContentEditing date={props.date} deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing>
+                  </animated.div>
+                )
+              }
               { (context.currentLabel !== '' || (context.currentLabel === '' && props.sn === 0)) && <div className='card--content--info'>
                 <div className='timestamp'>{localeString}</div>
                 <ul>
@@ -117,7 +131,7 @@ function Content (props) {
                   <li><div className='icon-btn' onClick={() => { handleDelete() }}>Delete</div></li>
                   <Modal visible={visible} setVisible={setVisible} deleteFamilyBlocks={deleteFamilyBlocks} allowScroll={allowScroll}></Modal>
                 </ul>
-              </div> }
+              </div>}
               <div className='card--content--label' onClick={() => {
                 context.currentLabel === props.label ? context.changeLabel('') : context.changeLabel(props.label)
               }}><h1>{props.label}</h1></div>
