@@ -114,7 +114,7 @@ function Modal (props) {
       <ModalOverlay visible={props.visible} />
       <ModalWrapper visible={props.visible}>
         <ModalInner>
-          <p>Are you sure you want to delete all sibling items...?</p>
+          <p>🚨 Are you sure you want to delete all sibling items?</p>
           <div>
             <StyledButton onClick={() => { handleCancel() }}>Cancel</StyledButton>
             <StyledButton onClick={() => { handleDelete() }}>Delete</StyledButton>
