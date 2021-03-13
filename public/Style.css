@@ -130,7 +130,7 @@ html, body {
   border-radius: .3rem;
   border-width: 0px;
   border-color: #857e7a;
-  padding:.7rem;
+  padding: 0rem;
   background-color:white;
   resize: vertical;
 }
@@ -195,7 +195,7 @@ html, body {
   align-items: center;
 }
 
-.card--contents--container button#write {
+/* .card--contents--container button#write {
   margin-top: 3vh;
   height: 3rem;
   width: 240px;
@@ -215,7 +215,7 @@ html, body {
 
 .card--contents--container button#write:focus {
   outline: none;
-}
+} */
 
 @media (min-width: 600px) {
   .card--contents--container {
