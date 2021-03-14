@@ -18,8 +18,6 @@ function ContentEditing (props) {
       return
     }
 
-    await props.deleteFamilyBlocks()
-
     let editing = editingEl.current.value.split(/^(#\s.+)$/m).slice(1)
 
     const labels = []
@@ -39,9 +37,10 @@ function ContentEditing (props) {
       })
     } else {
       setSubmitError(true)
-      console.log(submitError)
       return
     }
+
+    await props.deleteFamilyBlocks()
 
     for (let index = 0; index < labels.length; index++) {
       const label = labels[index]
@@ -96,6 +95,7 @@ function ContentEditing (props) {
                   <label>Markdown</label>
                   <textarea ref={editingEl} defaultValue={props.children}></textarea>
                 </div>
+                {submitError && <div>⚠️ Cannot recognize label. Please check the format: #⎵label↵</div>}
                 <div className='card--auth--body--footer'>
                   <button onClick={() => props.setEdit(false)}>Cancel</button>
                   <input type="submit" value="Submit"></input>
