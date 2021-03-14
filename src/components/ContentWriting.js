@@ -30,7 +30,6 @@ function ContentWriting (props) {
       })
     } else {
       setSubmitError(true)
-      console.log(submitError)
       return
     }
 
@@ -79,6 +78,7 @@ function ContentWriting (props) {
             <label><a href='https://www.markdownguide.org/basic-syntax/' target='_blank' rel='noreferrer'>Markdown</a></label>
             <textarea ref={writingEl} defaultValue={props.children}></textarea>
           </div>
+          {submitError && <div>⚠️ Cannot recognize label. Please check the format: #⎵label↵</div>}
           <div className='card--auth--body--footer'>
             <button type="button" onClick={() => props.setWrite(false)}>Cancel</button>
             <input type="submit" value="Submit"></input>
