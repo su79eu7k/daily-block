@@ -50,9 +50,9 @@ function ContentsRolling (props) {
           return
         }
       }
-      setLoading(false)
       setBlocks(resData.data.blocks)
       props.setBlocksUpdated(true)
+      setLoading(false)
     }).catch(err => {
       console.log(err)
     })
