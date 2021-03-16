@@ -1,8 +1,13 @@
 import React, { useState, useContext, useRef } from 'react'
 import PropTypes from 'prop-types'
-
 import AuthContext from '../context/auth-context'
 import LabelContext from '../context/label-context'
+import styled from 'styled-components'
+
+const StyledWarning = styled.div`
+  font-size: .8rem;
+  text-align: center;
+`
 
 function ContentEditing (props) {
   const [submitError, setSubmitError] = useState(false)
@@ -95,7 +100,7 @@ function ContentEditing (props) {
                   <label>Markdown</label>
                   <textarea ref={editingEl} defaultValue={props.children}></textarea>
                 </div>
-                {submitError && <div>⚠️ Cannot recognize label. Please check the format: #⎵label↵</div>}
+                {submitError && <StyledWarning>⚠️ Cannot recognize label. Please check the format: #⎵label↵</StyledWarning>}
                 <div className='card--auth--body--footer'>
                   <button onClick={() => props.setEdit(false)}>Cancel</button>
                   <input type="submit" value="Submit"></input>
