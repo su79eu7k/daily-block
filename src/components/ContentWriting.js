@@ -1,6 +1,12 @@
 import React, { useState, useContext, useRef } from 'react'
 import PropTypes from 'prop-types'
 import AuthContext from '../context/auth-context'
+import styled from 'styled-components'
+
+const StyledWarning = styled.div`
+  font-size: .8rem;
+  text-align: center;
+`
 
 function ContentWriting (props) {
   const [submitError, setSubmitError] = useState(false)
@@ -78,7 +84,7 @@ function ContentWriting (props) {
             <label><a href='https://www.markdownguide.org/basic-syntax/' target='_blank' rel='noreferrer'>Markdown</a></label>
             <textarea ref={writingEl} defaultValue={props.children}></textarea>
           </div>
-          {submitError && <div>⚠️ Cannot recognize label. Please check the format: #⎵label↵</div>}
+          {submitError && <StyledWarning>⚠️ Cannot recognize label. Please check the format: #⎵label↵</StyledWarning>}
           <div className='card--auth--body--footer'>
             <button type="button" onClick={() => props.setWrite(false)}>Cancel</button>
             <input type="submit" value="Submit"></input>
