@@ -6,13 +6,20 @@ const StyledContainer = styled.div`
   font-size: 2rem;
   text-align: center;
 `
-const StyledWrapper = styled(animated.div)`
-  margin: 3rem;
+const StyledWrapperMain = styled(animated.div)`
+  margin: 3rem 0rem 1.5rem 0rem;
+  padding: 3rem 0rem 1.5rem 0rem;
 `
-const StyledMain = styled(animated.div)``
+const StyledWrapperEx = styled(animated.div)`
+  margin: 1.5rem 0rem 3rem 0rem;
+  padding: 1.5rem 0rem 3rem 0rem;
+`
+const StyledMain = styled(animated.div)`
+  height: auto;
+`
 const StyledEx = styled(animated.div)`
   height: auto;
-  font-size: ${(props) => (props.id.charAt(0) === 'd' ? '1.2rem' : '1.5rem')};
+  font-size: ${(props) => (props.id.charAt(0) === 'd' ? '1.3rem' : '1.5rem')};
   color: ${(props) => (props.id.charAt(0) === 'd' ? '#857e7a' : '#443c36')};
 `
 
@@ -148,20 +155,20 @@ export default function App () {
 
   return (
     <StyledContainer>
-      <StyledWrapper>
+      <StyledWrapperMain>
         {transitMain.map(({ item, key, props }) => (
           <StyledMain id={item.k} key={key} style={props} onClick={resetMain}>
             {item.v}
           </StyledMain>
         ))}
-      </StyledWrapper>
-      <StyledWrapper>
+      </StyledWrapperMain>
+      <StyledWrapperEx>
         {transitEx.map(({ item, key, props }) => (
           <StyledEx id={item.k} key={key} style={props} onClick={resetEx}>
             {item.v}
           </StyledEx>
         ))}
-      </StyledWrapper>
+      </StyledWrapperEx>
     </StyledContainer>
   )
 }

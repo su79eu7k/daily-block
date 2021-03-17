@@ -24,6 +24,14 @@ const StyledButton = styled.button`
   &:focus {
     outline: none;
   }
+
+  @media (min-width: 600px) {
+    width: 480px;
+  }
+
+@media (min-width: 900px) {
+    width: 720px;
+  }
 `
 
 function Contents () {
