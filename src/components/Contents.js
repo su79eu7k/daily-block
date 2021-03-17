@@ -29,7 +29,7 @@ const StyledButton = styled.button`
     width: 480px;
   }
 
-@media (min-width: 900px) {
+  @media (min-width: 900px) {
     width: 720px;
   }
 `
