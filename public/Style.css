@@ -8,7 +8,7 @@ html, body {
   background-color: #f2f0ea;
   font-family: 'Roboto', sans-serif;
   color: #857e7a;
-  font-size: 14px;
+  font-size: 12px;
   -ms-overflow-style: none;  /* Hide scrollbar from IE and Edge */
   scrollbar-width: none;  /* Hide scrollbar from Firefox */
 }
@@ -195,34 +195,8 @@ html, body {
   align-items: center;
 }
 
-/* .card--contents--container button#write {
-  margin-top: 3vh;
-  height: 3rem;
-  width: 240px;
-  padding: 0px;
-  border-width: 0px;
-  border-radius: .3rem;
-  background-color: #443c36;
-  font-family: inherit;
-  font-size: 1rem;
-  color: #ffffff;
-}
-
-.card--contents--container button#write:hover {
-  cursor: pointer;
-  background-color: #857e7a;
-}
-
-.card--contents--container button#write:focus {
-  outline: none;
-} */
-
 @media (min-width: 600px) {
   .card--contents--container {
-    width: 480px;
-  }
-
-  .card--contents--container button#write{
     width: 480px;
   }
 }
@@ -231,12 +205,7 @@ html, body {
   .card--contents--container {
     width: 720px;
   }
-
-  .card--contents--container button#write{
-    width: 720px;
-  }
 }
-
 
 /* Rolling */
 
