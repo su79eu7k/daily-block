@@ -1,6 +1,20 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { useTransition, animated } from 'react-spring'
-// import styled from 'styled-components'
+import styled from 'styled-components'
+
+const StyledContainer = styled.div`
+  font-size: 2rem;
+  text-align: center;
+`
+const StyledWrapper = styled(animated.div)`
+  margin: 3rem;
+`
+const StyledMain = styled(animated.div)``
+const StyledEx = styled(animated.div)`
+  height: auto;
+  font-size: ${(props) => (props.id.charAt(0) === 'd' ? '1.2rem' : '1.5rem')};
+  color: ${(props) => (props.id.charAt(0) === 'd' ? '#857e7a' : '#443c36')};
+`
 
 export default function App () {
   const refMain = useRef([])
@@ -8,15 +22,17 @@ export default function App () {
   const [itemsMain, setItemsMain] = useState([])
   const [itemsEx, setItemsEx] = useState([])
   const transitMain = useTransition(itemsMain, (item) => item.k, {
-    from: { opacity: 0, height: 0 },
-    enter: { opacity: 1, height: 20 },
-    leave: { opacity: 0, height: 0 },
+    config: { mass: 1, tension: 210, friction: 20 },
+    from: { opacity: 0, maxHeight: '0rem', color: '#443c36' },
+    enter: [{ opacity: 1, maxHeight: '3rem', color: '#443c36' }, { color: '#857e7a' }],
+    leave: { opacity: 0, maxHeight: '0rem', color: '#443c36' },
     update: {}
   })
   const transitEx = useTransition(itemsEx, (item) => item.k, {
-    from: { opacity: 0, height: 0 },
-    enter: { opacity: 1, height: 20 },
-    leave: { opacity: 0, height: 0 },
+    config: { mass: 1, tension: 210, friction: 20 },
+    from: { opacity: 0, maxHeight: '0rem' },
+    enter: { opacity: 1, maxHeight: '2.4rem' },
+    leave: { opacity: 0, maxHeight: '0rem' },
     update: {}
   })
 
@@ -25,23 +41,26 @@ export default function App () {
     refMain.current = []
     setItemsMain([])
     refMain.current.push(
-      setTimeout(() => setItemsMain({ k: 'm0', v: 'Your life 🤗🍺' }), 1000)
+      setTimeout(() => setItemsMain({ k: 'm0', v: 'LIFE🤗🍺' }), 1000)
     )
     refMain.current.push(
-      setTimeout(() => setItemsMain({ k: 'm1', v: 'Your idea 💡✨' }), 3000)
-    )
-    refMain.current.push(
-      setTimeout(() => setItemsMain({ k: 'm2', v: 'Or anything 📈💸' }), 5000)
+      setTimeout(() => setItemsMain([{ k: 'm0', v: 'LIFE🤗🍺' }, { k: 'm1', v: 'IDEA💡✨' }]), 3000)
     )
     refMain.current.push(
       setTimeout(
-        () => setItemsMain([{ k: 'm3', v: 'Write it down ✏️📒' }]),
+        () => setItemsMain([{ k: 'm0', v: 'LIFE🤗🍺' }, { k: 'm1', v: 'IDEA💡✨' }, { k: 'm2', v: 'Anything to log📈💸' }]),
+        5000
+      )
+    )
+    refMain.current.push(
+      setTimeout(
+        () => setItemsMain([{ k: 'm3', v: 'Write it down✏️📒' }]),
         7000
       )
     )
     refMain.current.push(
       setTimeout(
-        () => setItemsMain([{ k: 'm4', v: 'And track them well 🔎🏷️' }]),
+        () => setItemsMain([{ k: 'm4', v: 'And track them well🔎🏷️' }]),
         14000
       )
     )
@@ -59,8 +78,8 @@ export default function App () {
           setItemsEx([
             { k: 'd0', v: 'Mon.' },
             { k: 'e0', v: '# IDEA' },
-            { k: 'e1', v: '# AAPL' },
-            { k: 'e2', v: '# EATING' }
+            { k: 'e1', v: '# AAPL📈' },
+            { k: 'e2', v: '# EATING🍽️' }
           ]),
         7000
       )
@@ -70,9 +89,9 @@ export default function App () {
         () =>
           setItemsEx([
             { k: 'd1', v: 'Tue.' },
-            { k: 'e3', v: '# EATING' },
-            { k: 'e4', v: '# AAPL' },
-            { k: 'e5', v: '# LOVE' }
+            { k: 'e3', v: '# EATING🍽️' },
+            { k: 'e4', v: '# MSFT' },
+            { k: 'e5', v: '# LOVE❤️' }
           ]),
         9000
       )
@@ -82,9 +101,9 @@ export default function App () {
         () =>
           setItemsEx([
             { k: 'd2', v: 'Wed.' },
-            { k: 'e6', v: '# AAPL' },
-            { k: 'e7', v: '# LOVE' },
-            { k: 'e8', v: '# EATING' }
+            { k: 'e6', v: '# AAPL📈' },
+            { k: 'e7', v: '# LOVE❤️' },
+            { k: 'e8', v: '# EATING🍽️' }
           ]),
         11000
       )
@@ -93,10 +112,10 @@ export default function App () {
       setTimeout(
         () =>
           setItemsEx([
-            { k: 'l0', v: '# EATING' },
-            { k: 'ld0', v: 'Wed.' },
-            { k: 'ld1', v: 'Tue.' },
-            { k: 'ld2', v: 'Mon.' }
+            { k: 'l0', v: '# EATING🍽️' },
+            { k: 'd0', v: 'Wed.' },
+            { k: 'd1', v: 'Tue.' },
+            { k: 'd2', v: 'Mon.' }
           ]),
         14000
       )
@@ -105,10 +124,9 @@ export default function App () {
       setTimeout(
         () =>
           setItemsEx([
-            { k: 'l1', v: '# AAPL' },
-            { k: 'ld3', v: 'Wed.' },
-            { k: 'ld4', v: 'Tue.' },
-            { k: 'ld5', v: 'Mon.' }
+            { k: 'l1', v: '# AAPL📈' },
+            { k: 'd3', v: 'Wed.' },
+            { k: 'd4', v: 'Mon.' }
           ]),
         16000
       )
@@ -117,9 +135,9 @@ export default function App () {
       setTimeout(
         () =>
           setItemsEx([
-            { k: 'l2', v: '# LOVE' },
-            { k: 'ld6', v: 'Wed.' },
-            { k: 'ld7', v: 'Tue.' }
+            { k: 'l2', v: '# LOVE❤️' },
+            { k: 'd5', v: 'Wed.' },
+            { k: 'd6', v: 'Tue.' }
           ]),
         18000
       )
@@ -129,21 +147,21 @@ export default function App () {
   useEffect(() => resetEx(), [])
 
   return (
-    <>
-      <div>
+    <StyledContainer>
+      <StyledWrapper>
         {transitMain.map(({ item, key, props }) => (
-          <animated.div key={key} style={props} onClick={resetMain}>
+          <StyledMain id={item.k} key={key} style={props} onClick={resetMain}>
             {item.v}
-          </animated.div>
+          </StyledMain>
         ))}
-      </div>
-      <div>
+      </StyledWrapper>
+      <StyledWrapper>
         {transitEx.map(({ item, key, props }) => (
-          <animated.div key={key} style={props} onClick={resetEx}>
+          <StyledEx id={item.k} key={key} style={props} onClick={resetEx}>
             {item.v}
-          </animated.div>
+          </StyledEx>
         ))}
-      </div>
-    </>
+      </StyledWrapper>
+    </StyledContainer>
   )
 }
