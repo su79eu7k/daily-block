@@ -76,17 +76,17 @@ html, body {
 
 /* Auth */
 
-.card--auth--container {
+.card--io--container {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 }
 
-.card--auth--header {
+.card--io--header {
   margin: 2vh auto 0vh auto;
 }
 
-.card--auth--body {
+.card--io--body {
   min-width: 240px;
   width: 100%;
   display: flex;
@@ -94,28 +94,28 @@ html, body {
   align-items: center;
 }
 
-.card--auth--body--elem {
+.card--io--body--elem {
   margin: 1rem auto;
 }
 
-.card--auth--body--elem label {
+.card--io--body--elem label {
   min-width: 240px;
   font-size: .7rem;
   display: block;
 }
 
-.card--auth--body--elem label a,
-.card--auth--body--elem label a:visited {
+.card--io--body--elem label a,
+.card--io--body--elem label a:visited {
   color: #857e7a;
   text-decoration: none;
 }
 
-.card--auth--body--elem label a:hover {
+.card--io--body--elem label a:hover {
   color: #443c36;
   text-decoration: underline;
 }
 
-.card--auth--body--elem input {
+.card--io--body--elem input {
   min-width: 240px;
   border-radius: .3rem;
   border-width: 0px;
@@ -124,7 +124,7 @@ html, body {
   background-color:white;
 }
 
-.card--auth--body--elem textarea {
+.card--io--body--elem textarea {
   min-width: 240px;
   min-height: 200px;
   border-radius: .3rem;
@@ -136,33 +136,33 @@ html, body {
 }
 
 @media (min-width: 600px) {
-  .card--auth--body--elem textarea {
+  .card--io--body--elem textarea {
     min-width: 480px;
     min-height: 270px;
   }
 }
 
 @media (min-width: 900px) {
-  .card--auth--body--elem textarea {
+  .card--io--body--elem textarea {
     min-width: 720px;
     min-height: 405px;
   }
 }
 
-.card--auth--body--elem input:focus,
-.card--auth--body--elem textarea:focus {
+.card--io--body--elem input:focus,
+.card--io--body--elem textarea:focus {
   outline: none;
 }
 
-.card--auth--body--footer {
+.card--io--body--footer {
   margin: 1rem auto;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
 }
 
-.card--auth--body--footer input, 
-.card--auth--body--footer button {
+.card--io--body--footer input, 
+.card--io--body--footer button {
   height: 2rem;
   width: 4rem;
   margin: .3rem;
@@ -174,14 +174,14 @@ html, body {
   color: #ffffff;
 }
 
-.card--auth--body--footer input:hover, 
-.card--auth--body--footer button:hover {
+.card--io--body--footer input:hover, 
+.card--io--body--footer button:hover {
   background-color: #443c36;
   cursor: pointer;
 }
 
-.card--auth--body--footer input:focus, 
-.card--auth--body--footer button:focus {
+.card--io--body--footer input:focus, 
+.card--io--body--footer button:focus {
   outline: none;
 }
 
