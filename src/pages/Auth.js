@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react'
 import AuthContext from '../context/auth-context'
 import styled from 'styled-components'
+import { useSpring, animated } from 'react-spring'
 
-const StyledAuthContainer = styled.div`
+const StyledAuthContainer = styled(animated.div)`
   margin: 3rem auto;
   display: flex;
   flex-flow: column nowrap;
@@ -129,12 +130,14 @@ function Auth () {
     })
   }
 
+  const styledProps = useSpring({ opacity: 1, from: { opacity: 0 } })
+
   return (
     <AuthContext.Consumer>
       {
         (authContext) => {
           return (
-            <StyledAuthContainer>
+            <StyledAuthContainer style={styledProps}>
               <StyledAuthHeader>{isSignUp ? 'Sign Up' : 'Sign In'}</StyledAuthHeader>
               {/* TODO: ID/PW validation feature. */}
               <StyledAuthBody>
