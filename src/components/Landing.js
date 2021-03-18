@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { useSpring, useTransition, animated } from 'react-spring'
 import styled from 'styled-components'
@@ -56,9 +57,11 @@ const StyledEx = styled(animated.div)`
 export default function App () {
   const refMain = useRef([])
   const refEx = useRef([])
+
   const [itemsMain, setItemsMain] = useState([])
   const [itemsEx, setItemsEx] = useState([])
   const [btnStart, setBtnStart] = useState(false)
+
   const transitMain = useTransition(itemsMain, (item) => item.k, {
     config: { mass: 1, tension: 210, friction: 20 },
     from: { opacity: 0, maxHeight: '0rem', color: '#443c36' },
@@ -191,19 +194,21 @@ export default function App () {
     <StyledContainer>
       <StyledWrapperMain>
         {transitMain.map(({ item, key, props }) => (
-          <StyledMain id={item.k} key={key} style={props} onClick={resetMain}>
+          <StyledMain id={item.k} key={key} style={props}>
             {item.v}
           </StyledMain>
         ))}
       </StyledWrapperMain>
       <StyledWrapperEx>
         {transitEx.map(({ item, key, props }) => (
-          <StyledEx id={item.k} key={key} style={props} onClick={resetEx}>
+          <StyledEx id={item.k} key={key} style={props}>
             {item.v}
           </StyledEx>
         ))}
       </StyledWrapperEx>
-      <StyledButton style={sprBtnStart}>Start 🔌</StyledButton>
+      <NavLink to='/login'>
+        <StyledButton style={sprBtnStart}>Start 🔌</StyledButton>
+      </NavLink>
     </StyledContainer>
   )
 }
