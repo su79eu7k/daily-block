@@ -1,5 +1,76 @@
 import React, { useRef, useState } from 'react'
 import AuthContext from '../context/auth-context'
+import styled from 'styled-components'
+
+const StyledAuthContainer = styled.div`
+  margin: 3rem auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+`
+
+const StyledAuthHeader = styled.div`
+  margin: 1rem auto;
+`
+
+const StyledAuthBody = styled.div`
+  min-width: 240px;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+`
+
+const StyledAuthBodyElem = styled.div`
+  margin: 1rem auto;
+
+  & label {
+    min-width: 240px;
+    font-size: .7rem;
+    display: block;
+  }
+
+  & input {
+    min-width: 240px;
+    border-radius: .3rem;
+    border-width: 0px;
+    border-color: #857e7a;
+    padding:.7rem;
+    background-color:white;
+
+    &:focus {
+      outline: none;
+    }
+  }
+`
+
+const StyledAuthFooter = styled.div`
+  margin: 2rem auto;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+
+  & input, button {
+    height: 2rem;
+    width: 4rem;
+    margin: .3rem;
+    border-width: 0px;
+    border-radius: 1rem;
+    background-color: #857e7a;
+    font-family: inherit;
+    font-size: .7rem;
+    color: #ffffff;
+
+    &:hover {
+      background-color: #443c36;
+      cursor: pointer;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+`
 
 function Auth () {
   const [isSignUp, setIsSignUp] = useState(false)
@@ -63,31 +134,31 @@ function Auth () {
       {
         (authContext) => {
           return (
-            <div className='card--auth--container'>
-              <div className='card--auth--header'>{isSignUp ? 'Sign Up' : 'Sign In'}</div>
+            <StyledAuthContainer>
+              <StyledAuthHeader>{isSignUp ? 'Sign Up' : 'Sign In'}</StyledAuthHeader>
               {/* TODO: ID/PW validation feature. */}
-              <div className='card--auth--body'>
+              <StyledAuthBody>
                 <form onSubmit={(e) => { authHandler(e, authContext) }}>
-                  <div className='card--auth--body--elem'>
+                  <StyledAuthBodyElem>
                     <label>
                       E-Mail
                     </label>
                     <input type="email" ref={emailEl} />
-                  </div>
-                  <div className='card--auth--body--elem'>
+                  </StyledAuthBodyElem>
+                  <StyledAuthBodyElem>
                     <label>
                       Password
                     </label>
                     <input type="password" ref={passwordEl} />
-                  </div>
-                  <div className='card--auth--body--footer'>
+                  </StyledAuthBodyElem>
+                  <StyledAuthFooter>
                     <input type="submit" value="Submit" />
                     {isSignUp && <button type="button" onClick={() => setIsSignUp(false)}>Sign In</button>}
                     {!isSignUp && <button type="button" onClick={() => setIsSignUp(true)}>Sign Up</button>}
-                  </div>
+                  </StyledAuthFooter>
                 </form>
-              </div>
-            </div>
+              </StyledAuthBody>
+            </StyledAuthContainer>
           )
         }
       }
