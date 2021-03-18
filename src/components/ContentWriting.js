@@ -77,15 +77,15 @@ function ContentWriting (props) {
   }
 
   return (
-    <div className='card--auth--container'>
-      <div className='card--auth--body'>
+    <div className='card--io--container'>
+      <div className='card--io--body'>
         <form onSubmit={writingHandler}>
-          <div className='card--auth--body--elem'>
+          <div className='card--io--body--elem'>
             <label><a href='https://www.markdownguide.org/basic-syntax/' target='_blank' rel='noreferrer'>Markdown</a></label>
             <textarea ref={writingEl} defaultValue={props.children}></textarea>
           </div>
           {submitError && <StyledWarning>⚠️ Cannot recognize label. Please check the format: #⎵label↵</StyledWarning>}
-          <div className='card--auth--body--footer'>
+          <div className='card--io--body--footer'>
             <button type="button" onClick={() => props.setWrite(false)}>Cancel</button>
             <input type="submit" value="Submit"></input>
           </div>

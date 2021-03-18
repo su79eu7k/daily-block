@@ -92,16 +92,16 @@ function ContentEditing (props) {
       {
         (context) => {
           return (
-            <div className='card--auth--container'>
-              <div className='card--auth--header'>Edit</div>
-              <div className='card--auth--body'>
+            <div className='card--io--container'>
+              <div className='card--io--header'>Edit</div>
+              <div className='card--io--body'>
               <form onSubmit={(e) => { editingHandler(e, context) }}>
-                <div className='card--auth--body--elem'>
-                  <label>Markdown</label>
+                <div className='card--io--body--elem'>
+                  <label><a href='https://www.markdownguide.org/basic-syntax/' target='_blank' rel='noreferrer'>Markdown</a></label>
                   <textarea ref={editingEl} defaultValue={props.children}></textarea>
                 </div>
                 {submitError && <StyledWarning>⚠️ Cannot recognize label. Please check the format: #⎵label↵</StyledWarning>}
-                <div className='card--auth--body--footer'>
+                <div className='card--io--body--footer'>
                   <button onClick={() => props.setEdit(false)}>Cancel</button>
                   <input type="submit" value="Submit"></input>
                 </div>
