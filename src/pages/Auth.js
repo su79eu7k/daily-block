@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react'
 import AuthContext from '../context/auth-context'
 import styled from 'styled-components'
+import { useSpring, animated } from 'react-spring'
 
-const StyledAuthContainer = styled.div`
+const StyledAuthContainer = styled(animated.div)`
   margin: 3rem auto;
   display: flex;
   flex-flow: column nowrap;
@@ -110,7 +111,7 @@ function Auth () {
       }
     }
 
-    // FIXME: No login faillure logic.
+    // FIXME: No user creation success/failed, login faillure logic.
     fetch('http://localhost:8000/graphql', {
       method: 'POST',
       body: JSON.stringify(requestBody),
@@ -120,6 +121,7 @@ function Auth () {
     }).then(res => {
       return res.json()
     }).then(resData => {
+      // console.log(resData)
       const resAuth = resData.data.login
       const auth = { token: resAuth.token, uesrId: resAuth.userId, tokenExpiration: resAuth.tokenExpiration }
       authContext.login(...Object.values(auth))
@@ -129,12 +131,14 @@ function Auth () {
     })
   }
 
+  const styledProps = useSpring({ opacity: 1, from: { opacity: 0 } })
+
   return (
     <AuthContext.Consumer>
       {
         (authContext) => {
           return (
-            <StyledAuthContainer>
+            <StyledAuthContainer style={styledProps}>
               <StyledAuthHeader>{isSignUp ? 'Sign Up' : 'Sign In'}</StyledAuthHeader>
               {/* TODO: ID/PW validation feature. */}
               <StyledAuthBody>
