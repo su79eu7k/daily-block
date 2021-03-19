@@ -111,7 +111,7 @@ function Auth () {
       }
     }
 
-    // FIXME: No login faillure logic.
+    // FIXME: No user creation success/failed, login faillure logic.
     fetch('http://localhost:8000/graphql', {
       method: 'POST',
       body: JSON.stringify(requestBody),
@@ -121,6 +121,7 @@ function Auth () {
     }).then(res => {
       return res.json()
     }).then(resData => {
+      // console.log(resData)
       const resAuth = resData.data.login
       const auth = { token: resAuth.token, uesrId: resAuth.userId, tokenExpiration: resAuth.tokenExpiration }
       authContext.login(...Object.values(auth))
