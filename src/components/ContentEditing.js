@@ -1,17 +1,29 @@
 import React, { useState, useContext, useRef } from 'react'
 import PropTypes from 'prop-types'
 import AuthContext from '../context/auth-context'
+import LabelContext from '../context/label-context'
+import styled from 'styled-components'
+
+const StyledWarning = styled.div`
+  font-size: .8rem;
+  text-align: center;
+`
 
 function ContentEditing (props) {
   const [submitError, setSubmitError] = useState(false)
   const auth = useContext(AuthContext)
   const editingEl = useRef(null)
 
-  const editingHandler = (event) => {
+  const editingHandler = async (event, labelContext) => {
     event.preventDefault()
 
+    // If submit button pushed but actually nothing has been Changed...
+    if (editingEl.current.value === props.children) {
+      props.setEdit(false)
+      return
+    }
+
     let editing = editingEl.current.value.split(/^(#\s.+)$/m).slice(1)
-    const familyTimeStamp = Date.now()
 
     const labels = []
     const contents = []
@@ -30,22 +42,24 @@ function ContentEditing (props) {
       })
     } else {
       setSubmitError(true)
-      console.log(submitError)
       return
     }
 
-    labels.forEach(function (item, index) {
+    await props.deleteFamilyBlocks()
+
+    for (let index = 0; index < labels.length; index++) {
       const label = labels[index]
       const content = contents[index].replaceAll(/\n/g, '\\n')
-      const date = familyTimeStamp
+      const sn = index
 
       const requestBody = {
         query: `
           mutation {
-            createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${date}}) {
+            createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${props.date}, sn: ${sn}}) {
               label
               content
               date
+              sn
             }
           }
         `
@@ -60,43 +74,49 @@ function ContentEditing (props) {
         }
       }).then(res => {
         return res.json()
-      }).then(resData => {
-        if (resData.errors) {
-          if (resData.errors[0].statusCode === 401) {
-            auth.logout()
-            return
-          }
-        }
-
-        props.setEdit(false)
-        props.deleteFamilyBlocks()
-        props.setBlocksUpdated(false)
       }).catch(err => {
         console.log(err)
       })
-    })
+    }
+
+    props.setEdit(false)
+    props.setBlocksUpdated(false)
+
+    if (labelContext.label !== '' && !labels.includes(labelContext.label)) {
+      labelContext.changeLabel('')
+    }
   }
 
   return (
-    <div>
-      <h2>Editing</h2>
-      <form onSubmit={editingHandler}>
-        <div>
-          <label>Markdown</label>
-        </div>
-        <div>
-          <textarea ref={editingEl} defaultValue={props.children}></textarea>
-        </div>
-        <div>
-          <button onClick={() => props.setEdit(false)}>Cancel</button>
-          <input type="submit" value="Submit"></input>
-        </div>
-      </form>
-    </div>
+    <LabelContext.Consumer>
+      {
+        (context) => {
+          return (
+            <div className='card--io--container'>
+              <div className='card--io--header'>Edit</div>
+              <div className='card--io--body'>
+              <form onSubmit={(e) => { editingHandler(e, context) }}>
+                <div className='card--io--body--elem'>
+                  <label><a href='https://www.markdownguide.org/basic-syntax/' target='_blank' rel='noreferrer'>Markdown</a></label>
+                  <textarea ref={editingEl} defaultValue={props.children}></textarea>
+                </div>
+                {submitError && <StyledWarning>⚠️ Cannot recognize label. Please check the format: #⎵label↵</StyledWarning>}
+                <div className='card--io--body--footer'>
+                  <button onClick={() => props.setEdit(false)}>Cancel</button>
+                  <input type="submit" value="Submit"></input>
+                </div>
+              </form>
+              </div>
+            </div>
+          )
+        }
+      }
+    </LabelContext.Consumer>
   )
 }
 
 ContentEditing.propTypes = {
+  date: PropTypes.number,
   setBlocksUpdated: PropTypes.func,
   children: PropTypes.string,
   deleteFamilyBlocks: PropTypes.func,

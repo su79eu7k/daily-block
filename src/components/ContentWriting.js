@@ -1,6 +1,12 @@
 import React, { useState, useContext, useRef } from 'react'
 import PropTypes from 'prop-types'
 import AuthContext from '../context/auth-context'
+import styled from 'styled-components'
+
+const StyledWarning = styled.div`
+  font-size: .8rem;
+  text-align: center;
+`
 
 function ContentWriting (props) {
   const [submitError, setSubmitError] = useState(false)
@@ -30,7 +36,6 @@ function ContentWriting (props) {
       })
     } else {
       setSubmitError(true)
-      console.log(submitError)
       return
     }
 
@@ -38,14 +43,16 @@ function ContentWriting (props) {
       const label = labels[index]
       const content = contents[index].replaceAll(/\n/g, '\\n')
       const date = familyTimeStamp
+      const sn = index
 
       const requestBody = {
         query: `
           mutation {
-            createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${date}}) {
+            createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${date}, sn: ${sn}}) {
               label
               content
               date
+              sn
             }
           }
         `
@@ -60,35 +67,38 @@ function ContentWriting (props) {
         }
       }).then(res => {
         return res.json()
-      }).then(resData => {
-        props.setBlocksUpdated(false)
       }).catch(err => {
         console.log(err)
       })
     })
+
+    props.setWrite(false)
+    props.setBlocksUpdated(false)
   }
 
   return (
-    <div>
-      <h2>Writing</h2>
-      <form onSubmit={writingHandler}>
-        <div>
-          <label>Markdown</label>
-        </div>
-        <div>
-          <textarea ref={writingEl} defaultValue={props.children}></textarea>
-        </div>
-        <div>
-          <input type="submit" value="Submit"></input>
-        </div>
-      </form>
+    <div className='card--io--container'>
+      <div className='card--io--body'>
+        <form onSubmit={writingHandler}>
+          <div className='card--io--body--elem'>
+            <label><a href='https://www.markdownguide.org/basic-syntax/' target='_blank' rel='noreferrer'>Markdown</a></label>
+            <textarea ref={writingEl} defaultValue={props.children}></textarea>
+          </div>
+          {submitError && <StyledWarning>⚠️ Cannot recognize label. Please check the format: #⎵label↵</StyledWarning>}
+          <div className='card--io--body--footer'>
+            <button type="button" onClick={() => props.setWrite(false)}>Cancel</button>
+            <input type="submit" value="Submit"></input>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }
 
 ContentWriting.propTypes = {
   setBlocksUpdated: PropTypes.func,
-  children: PropTypes.string
+  children: PropTypes.string,
+  setWrite: PropTypes.func
 }
 
 export default ContentWriting

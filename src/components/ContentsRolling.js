@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import AuthContext from '../context/auth-context'
 import LabelContext from '../context/label-context'
 import Content from './Content'
+import Skeleton from './Skeleton'
 
 function ContentsRolling (props) {
   const [blocks, setBlocks] = useState([])
+  const [loading, setLoading] = useState(false)
   const [label, setLabel] = useState({
     currentLabel: '',
     changeLabel: (selectedLabel) => {
@@ -17,16 +19,19 @@ function ContentsRolling (props) {
   const auth = useContext(AuthContext)
 
   const fetchBlocks = () => {
+    setLoading(true)
     const requestBody = {
       query: `
-        query {
-          blocks(label: "${label.currentLabel}") {
-            label
-            content
-            date
+          query {
+            blocks(label: "${label.currentLabel}") {
+              _id
+              label
+              content
+              date
+              sn
+            }
           }
-        }
-      `
+        `
     }
 
     fetch('http://localhost:8000/graphql', {
@@ -45,9 +50,9 @@ function ContentsRolling (props) {
           return
         }
       }
-
-      setBlocks([...resData.data.blocks])
+      setBlocks(resData.data.blocks)
       props.setBlocksUpdated(true)
+      setLoading(false)
     }).catch(err => {
       console.log(err)
     })
@@ -55,14 +60,11 @@ function ContentsRolling (props) {
 
   useEffect(fetchBlocks, [label.currentLabel, props.blocksUpdated, deletedCount])
 
-  // FIXME: Rendering order should be fixed.
   return (
     <LabelContext.Provider value={label}>
-      <div>
-        <h2>Rolling</h2>
-        {blocks.map((block, index) => {
-          return <Content key={index} label={block.label} date={block.date} content={block.content} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} />
-        })}
+      <div className='card--rolling--container'>
+        {loading && new Array(3).fill(1).map((_, i) => { return <Skeleton key={i} /> })}
+        {!loading && blocks.map((block) => { return <Content key={block._id} label={block.label} date={block.date} sn={block.sn} content={block.content} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} /> })}
       </div>
     </LabelContext.Provider>
   )

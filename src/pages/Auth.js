@@ -1,5 +1,77 @@
 import React, { useRef, useState } from 'react'
 import AuthContext from '../context/auth-context'
+import styled from 'styled-components'
+import { useSpring, animated } from 'react-spring'
+
+const StyledAuthContainer = styled(animated.div)`
+  margin: 3rem auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+`
+
+const StyledAuthHeader = styled.div`
+  margin: 1rem auto;
+`
+
+const StyledAuthBody = styled.div`
+  min-width: 240px;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+`
+
+const StyledAuthBodyElem = styled.div`
+  margin: 1rem auto;
+
+  & label {
+    min-width: 240px;
+    font-size: .7rem;
+    display: block;
+  }
+
+  & input {
+    min-width: 240px;
+    border-radius: .3rem;
+    border-width: 0px;
+    border-color: #857e7a;
+    padding:.7rem;
+    background-color:white;
+
+    &:focus {
+      outline: none;
+    }
+  }
+`
+
+const StyledAuthFooter = styled.div`
+  margin: 2rem auto;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+
+  & input, button {
+    height: 2rem;
+    width: 4rem;
+    margin: .3rem;
+    border-width: 0px;
+    border-radius: 1rem;
+    background-color: #857e7a;
+    font-family: inherit;
+    font-size: .7rem;
+    color: #ffffff;
+
+    &:hover {
+      background-color: #443c36;
+      cursor: pointer;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+`
 
 function Auth () {
   const [isSignUp, setIsSignUp] = useState(false)
@@ -39,7 +111,7 @@ function Auth () {
       }
     }
 
-    // FIXME: No login faillure logic.
+    // FIXME: No user creation success/failed, login faillure logic.
     fetch('http://localhost:8000/graphql', {
       method: 'POST',
       body: JSON.stringify(requestBody),
@@ -49,6 +121,7 @@ function Auth () {
     }).then(res => {
       return res.json()
     }).then(resData => {
+      // console.log(resData)
       const resAuth = resData.data.login
       const auth = { token: resAuth.token, uesrId: resAuth.userId, tokenExpiration: resAuth.tokenExpiration }
       authContext.login(...Object.values(auth))
@@ -58,32 +131,38 @@ function Auth () {
     })
   }
 
+  const styledProps = useSpring({ opacity: 1, from: { opacity: 0 } })
+
   return (
     <AuthContext.Consumer>
       {
         (authContext) => {
           return (
-            <div>
-              <h1>{isSignUp ? 'Sign Up' : 'Sign In'}</h1>
+            <StyledAuthContainer style={styledProps}>
+              <StyledAuthHeader>{isSignUp ? 'Sign Up' : 'Sign In'}</StyledAuthHeader>
               {/* TODO: ID/PW validation feature. */}
-              <form onSubmit={(e) => { authHandler(e, authContext) }}>
-                <div>
-                  <label>
-                    E-Mail:
-                  </label>
-                  <input type="email" ref={emailEl} />
-                </div>
-                <div>
-                  <label>
-                    Password:
-                  </label>
-                  <input type="password" ref={passwordEl} />
-                </div>
-                <input type="submit" value="Submit" />
-                {isSignUp && <button type="button" onClick={() => setIsSignUp(false)}>Sign In</button>}
-                {!isSignUp && <button type="button" onClick={() => setIsSignUp(true)}>Sign Up</button>}
-              </form>
-            </div>
+              <StyledAuthBody>
+                <form onSubmit={(e) => { authHandler(e, authContext) }}>
+                  <StyledAuthBodyElem>
+                    <label>
+                      E-Mail
+                    </label>
+                    <input type="email" ref={emailEl} />
+                  </StyledAuthBodyElem>
+                  <StyledAuthBodyElem>
+                    <label>
+                      Password
+                    </label>
+                    <input type="password" ref={passwordEl} />
+                  </StyledAuthBodyElem>
+                  <StyledAuthFooter>
+                    <input type="submit" value="Submit" />
+                    {isSignUp && <button type="button" onClick={() => setIsSignUp(false)}>Sign In</button>}
+                    {!isSignUp && <button type="button" onClick={() => setIsSignUp(true)}>Sign Up</button>}
+                  </StyledAuthFooter>
+                </form>
+              </StyledAuthBody>
+            </StyledAuthContainer>
           )
         }
       }
