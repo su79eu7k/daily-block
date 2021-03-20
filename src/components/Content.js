@@ -111,6 +111,10 @@ function Content (props) {
     leave: { opacity: 0 }
   })
 
+  const date = props.date
+  const setDeletedCount = props.setDeletedCount
+  const setBlocksUpdated = props.setBlocksUpdated
+
   return (
     <LabelContext.Consumer>
       {
@@ -120,7 +124,7 @@ function Content (props) {
               {
                 transitions.map(({ item, key, props }) => item &&
                   <animated.div key={key} style={props}>
-                    <ContentEditing date={props.date} deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={props.setDeletedCount} setBlocksUpdated={props.setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing>
+                    <ContentEditing date={date} deleteFamilyBlocks={deleteFamilyBlocks} setDeletedCount={setDeletedCount} setBlocksUpdated={setBlocksUpdated} setEdit={setEdit} edit={edit}>{formValue}</ContentEditing>
                   </animated.div>
                 )
               }
