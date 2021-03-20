@@ -38,31 +38,31 @@ function ContentWriting (props) {
       setSubmitError(true)
       return
     }
-
+    console.log(contents)
     labels.forEach(function (item, index) {
       const label = labels[index]
-      const content = contents[index].replaceAll(/\n/g, '\\n')
+      const content = contents[index]
       const date = familyTimeStamp
       const sn = index
 
-      const requestBody = {
-        query: `
-          mutation {
-            createBlock(blockInput: {label: "${label}", content: """${content}""", date: ${date}, sn: ${sn}}) {
+      const query = `mutation CreateBlock($label: String!, $content: String!, $date: Float!, $sn: Int!) {
+            createBlock(blockInput: {label: $label, content: $content, date: $date, sn: $sn}) {
               label
               content
               date
               sn
             }
-          }
-        `
-      }
+          }`
 
       fetch('http://localhost:8000/graphql', {
         method: 'POST',
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify({
+          query,
+          variables: { label, content, date, sn }
+        }),
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
           Authorization: 'Bearer ' + auth.token
         }
       }).then(res => {
