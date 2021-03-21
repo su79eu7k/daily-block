@@ -38,7 +38,6 @@ function ContentWriting (props) {
       setSubmitError(true)
       return
     }
-    console.log(contents)
     labels.forEach(function (item, index) {
       const label = labels[index]
       const content = contents[index]
