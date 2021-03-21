@@ -75,7 +75,7 @@ function Content (props) {
       familyBlock.push(e.label + e.content)
     })
 
-    setFormValue(familyBlock.join('').replaceAll('\\n', '\n'))
+    setFormValue(familyBlock.join(''))
   }
 
   useEffect(fetchFamilyBlocks, [props.blocksUpdated])
