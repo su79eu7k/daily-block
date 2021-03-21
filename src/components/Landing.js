@@ -108,7 +108,14 @@ export default function App () {
     )
   }, [])
 
-  useEffect(() => resetMain(), [])
+  useEffect(() => {
+    resetMain()
+
+    return () => {
+      setItemsMain([])
+      setItemsEx([])
+    }
+  }, [])
 
   const resetEx = useCallback(() => {
     refEx.current.map(clearTimeout)
