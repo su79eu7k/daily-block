@@ -121,11 +121,14 @@ function Auth () {
     }).then(res => {
       return res.json()
     }).then(resData => {
-      // console.log(resData)
-      const resAuth = resData.data.login
-      const auth = { token: resAuth.token, uesrId: resAuth.userId, tokenExpiration: resAuth.tokenExpiration }
-      authContext.login(...Object.values(auth))
-      localStorage.setItem('auth', JSON.stringify(auth))
+      if (isSignUp) {
+        console.log(resData.email)
+      } else {
+        const resAuth = resData.data.login
+        const auth = { token: resAuth.token, uesrId: resAuth.userId, tokenExpiration: resAuth.tokenExpiration }
+        authContext.login(...Object.values(auth))
+        localStorage.setItem('auth', JSON.stringify(auth))
+      }
     }).catch(err => {
       console.log(err)
     })
