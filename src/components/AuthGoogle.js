@@ -8,8 +8,8 @@ function AuthGoogle () {
 
   return (
     <GoogleLogin
-      clientId="clientId"
-      buttonText="Login"
+      clientId="39791115826-6tis5pko251mrppnkuugsvkprpn6jqo6.apps.googleusercontent.com"
+      buttonText="Sign in with Google"
       onSuccess={responseGoogle}
       onFailure={responseGoogle}
       cookiePolicy={'single_host_origin'}
