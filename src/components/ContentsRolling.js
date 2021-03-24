@@ -34,7 +34,7 @@ function ContentsRolling (props) {
         `
     }
 
-    fetch('http://localhost:8000/graphql', {
+    fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: {
