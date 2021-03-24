@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import AuthContext from '../context/auth-context'
+import AuthGoogle from '../components/AuthGoogle'
 import styled from 'styled-components'
 import { useSpring, animated } from 'react-spring'
 
@@ -165,6 +166,7 @@ function Auth () {
                   </StyledAuthFooter>
                 </form>
               </StyledAuthBody>
+              <AuthGoogle />
             </StyledAuthContainer>
           )
         }
