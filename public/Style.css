@@ -273,24 +273,43 @@ html, body {
 }
 
 .card--content--label {
-  color: #443c36;
-}
-
-.card--content--content {
   color: #857e7a;
 }
 
+.card--content--content {
+  color: #443c36;
+}
+
 /* Markdown */
+
+h1, h2, h3, h4, h5, h6 {
+  -webkit-font-smoothing:antialiased;
+  font-weight: 300;
+  color: #857e7a;
+}
 
 h1:hover {
   cursor: pointer;
 }
 
+img {
+  max-width: 100%;
+}
+
+p {
+  -webkit-font-smoothing:antialiased;
+  color: #857e7a
+}
+
+ul {
+  color: #857e7a
+}
+
 blockquote {
+  -webkit-font-smoothing:antialiased;
   border-left: 5px solid;
   border-color: #857e7a;
-  padding-left: 10px;
-  font-size: .9rem;
+  padding: .1rem 2rem;
 }
 
 /* Skeleton */
