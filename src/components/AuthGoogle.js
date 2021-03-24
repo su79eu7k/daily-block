@@ -3,7 +3,7 @@ import GoogleLogin from 'react-google-login'
 import authContext from '../context/auth-context'
 const { OAuth2Client } = require('google-auth-library')
 
-const clientId = '39791115826-6tis5pko251mrppnkuugsvkprpn6jqo6.apps.googleusercontent.com'
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID
 const client = new OAuth2Client(clientId)
 
 function AuthGoogle () {
@@ -22,7 +22,7 @@ function AuthGoogle () {
       }
     }`
 
-    fetch('http://localhost:8000/graphql', {
+    fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify({
         query,
