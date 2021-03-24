@@ -50,11 +50,11 @@ function AuthGoogle () {
         (authContext) => {
           return (
             <GoogleLogin
-              clientId="39791115826-6tis5pko251mrppnkuugsvkprpn6jqo6.apps.googleusercontent.com"
+              clientId={clientId}
               buttonText="Sign in with Google"
               onSuccess={(resGoogle) => { responseGoogle(resGoogle, authContext) }}
               onFailure={responseGoogle}
-              // cookiePolicy={'single_host_origin'}
+            // cookiePolicy={'single_host_origin'}
             />
           )
         }
