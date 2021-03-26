@@ -113,7 +113,7 @@ function Auth () {
     }
 
     // FIXME: No user creation success/failed, login faillure logic.
-    fetch('http://localhost:8000/graphql', {
+    fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: {

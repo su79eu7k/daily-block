@@ -18,8 +18,40 @@ function ContentsRolling (props) {
 
   const auth = useContext(AuthContext)
 
+  const fetchFamilyIndex = () => {
+    const query = `query {
+      familyIndex {
+        distinct
+      }
+    }`
+
+    fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
+      method: 'POST',
+      body: JSON.stringify({
+        query
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + auth.token
+      }
+    }).then(res => {
+      return res.json()
+    }).then(resData => {
+      console.log(resData)
+      if (resData.errors) {
+        if (resData.errors[0].statusCode === 401) {
+          auth.logout()
+        }
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   const fetchBlocks = () => {
     setLoading(true)
+    fetchFamilyIndex()
+
     const requestBody = {
       query: `
           query {
