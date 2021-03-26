@@ -18,14 +18,14 @@ function ContentsRolling (props) {
 
   const auth = useContext(AuthContext)
 
-  const fetchFamilyIndex = () => {
+  const fetchFamilyIndex = async () => {
     const query = `query {
       familyIndex {
         distinct
       }
     }`
 
-    fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
+    const res = await fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify({
         query
@@ -34,23 +34,24 @@ function ContentsRolling (props) {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + auth.token
       }
-    }).then(res => {
-      return res.json()
-    }).then(resData => {
-      console.log(resData)
-      if (resData.errors) {
-        if (resData.errors[0].statusCode === 401) {
-          auth.logout()
-        }
-      }
-    }).catch(err => {
-      console.log(err)
     })
+    const resData = await res.json()
+
+    if (resData.errors) {
+      if (resData.errors[0].statusCode === 401) {
+        auth.logout()
+      }
+    }
+
+    return resData.data.familyIndex.distinct
   }
 
-  const fetchBlocks = () => {
+  const fetchBlocks = async () => {
     setLoading(true)
-    fetchFamilyIndex()
+    if (label.currentLabel === '') {
+      const distinct = await fetchFamilyIndex()
+      console.log(distinct)
+    }
 
     const requestBody = {
       query: `
@@ -66,28 +67,25 @@ function ContentsRolling (props) {
         `
     }
 
-    fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
+    const res = await fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + auth.token
       }
-    }).then(res => {
-      return res.json()
-    }).then(resData => {
-      if (resData.errors) {
-        if (resData.errors[0].statusCode === 401) {
-          auth.logout()
-          return
-        }
-      }
-      setBlocks(resData.data.blocks)
-      props.setBlocksUpdated(true)
-      setLoading(false)
-    }).catch(err => {
-      console.log(err)
     })
+    const resData = await res.json()
+
+    if (resData.errors) {
+      if (resData.errors[0].statusCode === 401) {
+        auth.logout()
+      }
+    }
+
+    setBlocks(resData.data.blocks)
+    props.setBlocksUpdated(true)
+    setLoading(false)
   }
 
   useEffect(fetchBlocks, [label.currentLabel, props.blocksUpdated, deletedCount])
