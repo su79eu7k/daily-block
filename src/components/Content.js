@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from 'react'
+import React, { useState, useContext, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
 import ReactMarkdown from 'react-markdown'
@@ -35,27 +35,22 @@ function Content (props) {
     document.body.removeEventListener('touchmove', handleTouchMove)
   }
 
-  const handleDelete = () => {
-    rejectScroll()
-    setVisible(true)
-  }
-
-  const fetchFamilyBlocks = async () => {
-    const requestBody = {
-      query: `
-        query {
-          familyBlocks(date: ${props.date}) {
-            label
-            content
-            date
-          }
+  const fetchFormValue = async () => {
+    const query = `
+      query Blocks($familyIndex: [Float!], $label: String) {
+        blocks(familyIndex: $familyIndex, label: $label) {
+          label
+          content
+          date
         }
-      `
-    }
+      }`
 
-    const res = await fetch('http://localhost:8000/graphql', {
+    const res = await fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
       method: 'POST',
-      body: JSON.stringify(requestBody),
+      body: JSON.stringify({
+        query,
+        variables: { familyIndex: props.date, label: '' }
+      }),
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + auth.token
@@ -71,14 +66,12 @@ function Content (props) {
     }
 
     const familyBlock = []
-    resData.data.familyBlocks.forEach((e) => {
+    resData.data.blocks.forEach((e) => {
       familyBlock.push(e.label + e.content)
     })
 
     setFormValue(familyBlock.join(''))
   }
-
-  useEffect(fetchFamilyBlocks, [props.blocksUpdated])
 
   const deleteFamilyBlocks = async () => {
     const requestBody = {
@@ -101,6 +94,18 @@ function Content (props) {
     })
     const resData = await res.json()
     props.setDeletedCount(resData.data.deleteFamilyBlocks.deletedCount)
+  }
+
+  const handleEdit = () => {
+    if (edit === false) {
+      fetchFormValue()
+    }
+    setEdit(!edit)
+  }
+
+  const handleDelete = () => {
+    rejectScroll()
+    setVisible(true)
   }
 
   const localeString = new Date(props.date).toLocaleString('en-US')
@@ -131,7 +136,7 @@ function Content (props) {
               { (context.currentLabel !== '' || (context.currentLabel === '' && props.sn === 0)) && <div className='card--content--info'>
                 <div className='timestamp'>{localeString}</div>
                 <ul>
-                  <li><div className='icon-btn' onClick={() => { setEdit(!edit) }}>Edit</div></li>
+                  <li><div className='icon-btn' onClick={() => { handleEdit() }}>Edit</div></li>
                   <li><div className='icon-btn' onClick={() => { handleDelete() }}>Delete</div></li>
                   <Modal visible={visible} setVisible={setVisible} deleteFamilyBlocks={deleteFamilyBlocks} allowScroll={allowScroll}></Modal>
                 </ul>
