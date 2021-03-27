@@ -18,44 +18,80 @@ function ContentsRolling (props) {
 
   const auth = useContext(AuthContext)
 
-  const fetchBlocks = () => {
-    setLoading(true)
-    const requestBody = {
-      query: `
-          query {
-            blocks(label: "${label.currentLabel}") {
-              _id
-              label
-              content
-              date
-              sn
-            }
-          }
-        `
-    }
+  const fetchFamilyIndex = async () => {
+    const query = `query {
+      familyIndex {
+        distinct
+      }
+    }`
 
-    fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
+    const res = await fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
       method: 'POST',
-      body: JSON.stringify(requestBody),
+      body: JSON.stringify({
+        query
+      }),
       headers: {
         'Content-Type': 'application/json',
+        Accept: 'application/json',
         Authorization: 'Bearer ' + auth.token
       }
-    }).then(res => {
-      return res.json()
-    }).then(resData => {
-      if (resData.errors) {
-        if (resData.errors[0].statusCode === 401) {
-          auth.logout()
-          return
-        }
-      }
-      setBlocks(resData.data.blocks)
-      props.setBlocksUpdated(true)
-      setLoading(false)
-    }).catch(err => {
-      console.log(err)
     })
+    const resData = await res.json()
+
+    if (resData.errors) {
+      if (resData.errors[0].statusCode === 401) {
+        auth.logout()
+      }
+    }
+
+    return resData.data.familyIndex.distinct
+  }
+
+  const fetchBlocks = async () => {
+    setLoading(true)
+
+    const currentLabel = label.currentLabel
+    let currentFamilies
+    if (currentLabel === '') {
+      const distinct = await fetchFamilyIndex()
+      currentFamilies = distinct
+    }
+
+    const query = `
+      query Blocks($familyIndex: [Float!], $label: String) {
+        blocks(familyIndex: $familyIndex, label: $label) {
+          _id
+          label
+          content
+          date
+          sn
+        }
+      }`
+
+    const res = await fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
+      method: 'POST',
+      body: JSON.stringify({
+        query,
+        variables: { familyIndex: currentFamilies, label: currentLabel }
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + auth.token
+      }
+    })
+    const resData = await res.json()
+    console.log(resData)
+
+    if (resData.errors) {
+      if (resData.errors[0].statusCode === 401) {
+        auth.logout()
+      }
+    }
+
+    setBlocks(resData.data.blocks)
+    props.setBlocksUpdated(true)
+    setLoading(false)
   }
 
   useEffect(fetchBlocks, [label.currentLabel, props.blocksUpdated, deletedCount])
