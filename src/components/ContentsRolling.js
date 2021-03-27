@@ -32,6 +32,7 @@ function ContentsRolling (props) {
       }),
       headers: {
         'Content-Type': 'application/json',
+        Accept: 'application/json',
         Authorization: 'Bearer ' + auth.token
       }
     })
@@ -48,34 +49,39 @@ function ContentsRolling (props) {
 
   const fetchBlocks = async () => {
     setLoading(true)
-    if (label.currentLabel === '') {
+
+    const currentLabel = label.currentLabel
+    let currentFamilies
+    if (currentLabel === '') {
       const distinct = await fetchFamilyIndex()
-      console.log(distinct)
+      currentFamilies = distinct
     }
 
-    const requestBody = {
-      query: `
-          query {
-            blocks(label: "${label.currentLabel}") {
-              _id
-              label
-              content
-              date
-              sn
-            }
-          }
-        `
-    }
+    const query = `
+      query Blocks($familyIndex: [Float!], $label: String) {
+        blocks(familyIndex: $familyIndex, label: $label) {
+          _id
+          label
+          content
+          date
+          sn
+        }
+      }`
 
     const res = await fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
       method: 'POST',
-      body: JSON.stringify(requestBody),
+      body: JSON.stringify({
+        query,
+        variables: { familyIndex: currentFamilies, label: currentLabel }
+      }),
       headers: {
         'Content-Type': 'application/json',
+        Accept: 'application/json',
         Authorization: 'Bearer ' + auth.token
       }
     })
     const resData = await res.json()
+    console.log(resData)
 
     if (resData.errors) {
       if (resData.errors[0].statusCode === 401) {
