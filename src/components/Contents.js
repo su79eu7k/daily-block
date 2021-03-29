@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
+
 import ContentsRolling from './ContentsRolling'
 import ContentWriting from './ContentWriting'
+
+import AuthContext from '../context/auth-context'
+import extendToken from '../utilities/extendToken'
+
 import { useTransition, animated } from 'react-spring'
 import styled from 'styled-components'
 
@@ -38,6 +43,14 @@ function Contents () {
   const [write, setWrite] = useState(false)
   const [blocksUpdated, setBlocksUpdated] = useState(true)
 
+  const handleButtonClick = (authContext) => {
+    setWrite(true)
+
+    if (!write) {
+      extendToken(authContext)
+    }
+  }
+
   const transitions = useTransition(write, null, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
@@ -45,17 +58,25 @@ function Contents () {
   })
 
   return (
-    <div className='card--contents--container'>
-      <StyledButton write={write} type='button' onClick={() => setWrite(true)}>New ✏️</StyledButton>
+    <AuthContext.Consumer>
       {
-        transitions.map(({ item, key, props }) => item &&
-          <animated.div key={key} style={props}>
-            <ContentWriting setWrite={setWrite} setBlocksUpdated={setBlocksUpdated} />
-          </animated.div>
-        )
+        (authContext) => {
+          return (
+            <div className='card--contents--container'>
+              <StyledButton write={write} type='button' onClick={() => handleButtonClick(authContext)}>New ✏️</StyledButton>
+              {
+                transitions.map(({ item, key, props }) => item &&
+                  <animated.div key={key} style={props}>
+                    <ContentWriting setWrite={setWrite} setBlocksUpdated={setBlocksUpdated} />
+                  </animated.div>
+                )
+              }
+              <ContentsRolling blocksUpdated={blocksUpdated} setBlocksUpdated={setBlocksUpdated} />
+            </div>
+          )
+        }
       }
-      <ContentsRolling blocksUpdated={blocksUpdated} setBlocksUpdated={setBlocksUpdated} />
-    </div>
+    </AuthContext.Consumer>
   )
 }
 

@@ -5,6 +5,8 @@ import ReactMarkdown from 'react-markdown'
 
 import AuthContext from '../context/auth-context'
 import LabelContext from '../context/label-context'
+import extendToken from '../utilities/extendToken'
+
 import ContentEditing from './ContentEditing'
 import Modal from './Modal'
 
@@ -98,9 +100,10 @@ function Content (props) {
     props.setDeletedCount(resData.data.deleteFamilyBlocks.deletedCount)
   }
 
-  const handleEdit = () => {
+  const handleEdit = (authContext) => {
     if (edit === false) {
       fetchFormValue()
+      extendToken(authContext)
     }
     setEdit(!edit)
   }
@@ -125,7 +128,7 @@ function Content (props) {
   return (
     <LabelContext.Consumer>
       {
-        (context) => {
+        (labelContext) => {
           return (
             <div className='card--content--container'>
               {
@@ -135,16 +138,26 @@ function Content (props) {
                   </animated.div>
                 )
               }
-              { (context.currentLabel !== '' || (context.currentLabel === '' && props.sn === 0)) && <div className='card--content--info'>
+              { (labelContext.currentLabel !== '' || (labelContext.currentLabel === '' && props.sn === 0)) && <div className='card--content--info'>
                 <div className='timestamp'>{localeString}</div>
                 <ul>
-                  <li><div className='icon-btn' onClick={() => { handleEdit() }}>Edit</div></li>
+                  <li>
+                    <AuthContext.Consumer>
+                      {
+                        (authContext) => {
+                          return (
+                            <div className='icon-btn' onClick={() => { handleEdit(authContext) }}>Edit</div>
+                          )
+                        }
+                      }
+                    </AuthContext.Consumer>
+                  </li>
                   <li><div className='icon-btn' onClick={() => { handleDelete() }}>Delete</div></li>
                   <Modal visible={visible} setVisible={setVisible} deleteFamilyBlocks={deleteFamilyBlocks} allowScroll={allowScroll}></Modal>
                 </ul>
               </div>}
               <div className='card--content--label' onClick={() => {
-                context.currentLabel === props.label ? context.changeLabel('') : context.changeLabel(props.label)
+                labelContext.currentLabel === props.label ? labelContext.changeLabel('') : labelContext.changeLabel(props.label)
               }}><h1>{props.label}</h1></div>
               <div className='card--content--content'>
                 <ReactMarkdown>
