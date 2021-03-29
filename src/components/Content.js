@@ -5,6 +5,8 @@ import ReactMarkdown from 'react-markdown'
 
 import AuthContext from '../context/auth-context'
 import LabelContext from '../context/label-context'
+import extendToken from '../utilities/extendToken'
+
 import ContentEditing from './ContentEditing'
 import Modal from './Modal'
 
@@ -96,9 +98,10 @@ function Content (props) {
     props.setDeletedCount(resData.data.deleteFamilyBlocks.deletedCount)
   }
 
-  const handleEdit = () => {
+  const handleEdit = (authContext) => {
     if (edit === false) {
       fetchFormValue()
+      extendToken(authContext)
     }
     setEdit(!edit)
   }
@@ -136,7 +139,17 @@ function Content (props) {
               { (labelContext.currentLabel !== '' || (labelContext.currentLabel === '' && props.sn === 0)) && <div className='card--content--info'>
                 <div className='timestamp'>{localeString}</div>
                 <ul>
-                  <li><div className='icon-btn' onClick={() => { handleEdit() }}>Edit</div></li>
+                  <li>
+                    <AuthContext.Consumer>
+                      {
+                        (authContext) => {
+                          return (
+                            <div className='icon-btn' onClick={() => { handleEdit(authContext) }}>Edit</div>
+                          )
+                        }
+                      }
+                    </AuthContext.Consumer>
+                  </li>
                   <li><div className='icon-btn' onClick={() => { handleDelete() }}>Delete</div></li>
                   <Modal visible={visible} setVisible={setVisible} deleteFamilyBlocks={deleteFamilyBlocks} allowScroll={allowScroll}></Modal>
                 </ul>

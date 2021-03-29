@@ -1,4 +1,4 @@
-function renewToken (authContext) {
+function extendToken (authContext) {
   const query = `query {
     extendToken {
       token
@@ -19,7 +19,6 @@ function renewToken (authContext) {
     return res.json()
   }).then(resData => {
     const auth = { token: resData.data.extendToken.token }
-    console.log(auth)
     authContext.login(...Object.values(auth))
     localStorage.setItem('auth', JSON.stringify(auth))
   }).catch(err => {
@@ -27,4 +26,4 @@ function renewToken (authContext) {
   })
 }
 
-export default renewToken
+export default extendToken

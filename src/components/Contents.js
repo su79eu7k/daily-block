@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+
 import ContentsRolling from './ContentsRolling'
 import ContentWriting from './ContentWriting'
+
+import AuthContext from '../context/auth-context'
+import extendToken from '../utilities/extendToken'
+
 import { useTransition, animated } from 'react-spring'
 import styled from 'styled-components'
-import AuthContext from '../context/auth-context'
-import renewToken from '../utilities/extendLogin'
 
 const StyledButton = styled.button`
   margin-top: 3vh;
@@ -44,7 +47,7 @@ function Contents () {
     setWrite(true)
 
     if (!write) {
-      renewToken(authContext)
+      extendToken(authContext)
     }
   }
 
