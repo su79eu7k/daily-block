@@ -49,10 +49,11 @@ function Content (props) {
       method: 'POST',
       body: JSON.stringify({
         query,
-        variables: { familyIndex: props.date, label: '' }
+        variables: { familyIndex: [props.date], label: '' }
       }),
       headers: {
         'Content-Type': 'application/json',
+        Accept: 'application/json',
         Authorization: 'Bearer ' + auth.token
       }
     })
@@ -89,6 +90,7 @@ function Content (props) {
       body: JSON.stringify(requestBody),
       headers: {
         'Content-Type': 'application/json',
+        Accept: 'application/json',
         Authorization: 'Bearer ' + auth.token
       }
     })

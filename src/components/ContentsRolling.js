@@ -81,7 +81,6 @@ function ContentsRolling (props) {
       }
     })
     const resData = await res.json()
-    console.log(resData)
 
     if (resData.errors) {
       if (resData.errors[0].statusCode === 401) {
