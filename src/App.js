@@ -8,11 +8,7 @@ import Auth from './pages/Auth'
 import AuthContext from './context/auth-context'
 
 function App () {
-  const [auth, setAuth] = useState({
-    token: null,
-    userId: null,
-    tokenExpiration: null
-  })
+  const [auth, setAuth] = useState({ token: null })
 
   const checkLoggedInfo = () => {
     const loggedInfo = JSON.parse(localStorage.getItem('auth'))
@@ -23,18 +19,18 @@ function App () {
 
   useEffect(checkLoggedInfo, [])
 
-  const login = (token, userId, tokenExpiration) => {
-    setAuth({ token: token, userId: userId, tokenExpiration: tokenExpiration })
+  const login = (token) => {
+    setAuth({ token: token })
   }
 
   const logout = () => {
-    setAuth({ token: null, userId: null, tokenExpiration: null })
+    setAuth({ token: null })
     localStorage.removeItem('auth')
   }
 
   return (
     <BrowserRouter>
-      <AuthContext.Provider value={{ token: auth.token, userId: auth.userId, login: login, logout: logout }}>
+      <AuthContext.Provider value={{ token: auth.token, login: login, logout: logout }}>
         <NavBar />
         <main>
           <Switch>
