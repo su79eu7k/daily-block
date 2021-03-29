@@ -103,9 +103,7 @@ function Auth () {
         query: `
           query {
             login(email: "${email}", password: "${password}") {
-              userId
               token
-              tokenExpiration
             }
           }
         `
@@ -117,7 +115,8 @@ function Auth () {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
       }
     }).then(res => {
       return res.json()
@@ -126,7 +125,7 @@ function Auth () {
         console.log(resData.email)
       } else {
         const resAuth = resData.data.login
-        const auth = { token: resAuth.token, uesrId: resAuth.userId, tokenExpiration: resAuth.tokenExpiration }
+        const auth = { token: resAuth.token }
         authContext.login(...Object.values(auth))
         localStorage.setItem('auth', JSON.stringify(auth))
       }

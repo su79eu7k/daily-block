@@ -36,7 +36,7 @@ function AuthGoogle () {
       return res.json()
     }).then(resData => {
       const resAuth = resData.data.authUserGoogle
-      const auth = { token: resAuth.token, uesrId: resAuth.userId, tokenExpiration: resAuth.tokenExpiration }
+      const auth = { token: resAuth.token }
       authContext.login(...Object.values(auth))
       localStorage.setItem('auth', JSON.stringify(auth))
     }).catch(err => {
