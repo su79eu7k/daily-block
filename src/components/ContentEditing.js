@@ -81,7 +81,7 @@ function ContentEditing (props) {
     }
 
     props.setEdit(false)
-    props.setBlocksUpdated(false)
+    props.setBlocksUpdated(Date.now())
 
     if (labelContext.label !== '' && !labels.includes(labelContext.label)) {
       labelContext.changeLabel('')

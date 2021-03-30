@@ -179,7 +179,7 @@ Content.propTypes = {
   sn: PropTypes.number,
   setDeletedCount: PropTypes.func,
   setBlocksUpdated: PropTypes.func,
-  blocksUpdated: PropTypes.bool
+  blocksUpdated: PropTypes.number
 }
 
 export default Content
