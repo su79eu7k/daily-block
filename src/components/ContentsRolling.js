@@ -105,7 +105,7 @@ function ContentsRolling (props) {
 }
 
 ContentsRolling.propTypes = {
-  blocksUpdated: PropTypes.bool,
+  blocksUpdated: PropTypes.number,
   setBlocksUpdated: PropTypes.func
 }
 
