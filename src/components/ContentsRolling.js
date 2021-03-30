@@ -89,7 +89,6 @@ function ContentsRolling (props) {
     }
 
     setBlocks(resData.data.blocks)
-    props.setBlocksUpdated(true)
     setLoading(false)
   }
 
