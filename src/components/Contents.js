@@ -41,7 +41,7 @@ const StyledButton = styled.button`
 
 function Contents () {
   const [write, setWrite] = useState(false)
-  const [blocksUpdated, setBlocksUpdated] = useState(true)
+  const [blocksUpdated, setBlocksUpdated] = useState(Date.now())
 
   const handleButtonClick = (authContext) => {
     setWrite(true)

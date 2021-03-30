@@ -81,7 +81,6 @@ function ContentsRolling (props) {
       }
     })
     const resData = await res.json()
-    console.log(resData)
 
     if (resData.errors) {
       if (resData.errors[0].statusCode === 401) {
@@ -90,7 +89,6 @@ function ContentsRolling (props) {
     }
 
     setBlocks(resData.data.blocks)
-    props.setBlocksUpdated(true)
     setLoading(false)
   }
 
@@ -107,7 +105,7 @@ function ContentsRolling (props) {
 }
 
 ContentsRolling.propTypes = {
-  blocksUpdated: PropTypes.bool,
+  blocksUpdated: PropTypes.number,
   setBlocksUpdated: PropTypes.func
 }
 

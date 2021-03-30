@@ -72,7 +72,7 @@ function ContentWriting (props) {
     })
 
     props.setWrite(false)
-    props.setBlocksUpdated(false)
+    props.setBlocksUpdated(Date.now())
   }
 
   return (
