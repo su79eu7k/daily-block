@@ -89,7 +89,6 @@ function ContentsRolling (props) {
     }
 
     setBlocks(resData.data.blocks)
-    props.setBlocksUpdated(true)
     setLoading(false)
   }
 
@@ -106,7 +105,7 @@ function ContentsRolling (props) {
 }
 
 ContentsRolling.propTypes = {
-  blocksUpdated: PropTypes.bool,
+  blocksUpdated: PropTypes.number,
   setBlocksUpdated: PropTypes.func
 }
 
