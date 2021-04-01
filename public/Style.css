@@ -276,6 +276,11 @@ html, body {
   color: #857e7a;
 }
 
+.card--content--label--title h1 {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
 .card--content--content {
   color: #443c36;
 }

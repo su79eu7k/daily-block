@@ -156,9 +156,13 @@ function Content (props) {
                   <Modal visible={visible} setVisible={setVisible} deleteFamilyBlocks={deleteFamilyBlocks} allowScroll={allowScroll}></Modal>
                 </ul>
               </div>}
-              <div className='card--content--label' onClick={() => {
-                labelContext.currentLabel === props.label ? labelContext.changeLabel('') : labelContext.changeLabel(props.label)
-              }}><h1>{props.label}</h1></div>
+              {
+                labelContext.currentLabel !== props.label
+                  ? <div className='card--content--label' onClick={() => {
+                    labelContext.currentLabel === props.label ? labelContext.changeLabel('') : labelContext.changeLabel(props.label)
+                  }}><h1>{props.label}</h1></div>
+                  : null
+              }
               <div className='card--content--content'>
                 <ReactMarkdown>
                   {props.content.replaceAll('\\n', '\n')}

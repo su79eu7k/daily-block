@@ -97,7 +97,12 @@ function ContentsRolling (props) {
   return (
     <LabelContext.Provider value={label}>
       <div className='card--rolling--container'>
-        {loading && new Array(3).fill(1).map((_, i) => { return <Skeleton key={i} /> })}
+        {
+          label.currentLabel !== ''
+            ? <div className='card--content--container'><div className='card--content--label--title' onClick={() => { label.changeLabel('') }}><h1>{label.currentLabel}</h1></div></div>
+            : null
+        }
+        {loading && new Array(3).fill(1).map((_, i) => { return <Skeleton key={i} currentLabel={label.currentLabel} /> })}
         {!loading && blocks.map((block) => { return <Content key={block._id} label={block.label} date={block.date} sn={block.sn} content={block.content} setDeletedCount={setDeletedCount} blocksUpdated={props.blocksUpdated} setBlocksUpdated={props.setBlocksUpdated} /> })}
       </div>
     </LabelContext.Provider>
