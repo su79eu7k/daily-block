@@ -41,6 +41,7 @@ function ContentsRolling (props) {
     if (resData.errors) {
       if (resData.errors[0].statusCode === 401) {
         auth.logout()
+        return
       }
     }
 
@@ -85,6 +86,7 @@ function ContentsRolling (props) {
     if (resData.errors) {
       if (resData.errors[0].statusCode === 401) {
         auth.logout()
+        return
       }
     }
 
