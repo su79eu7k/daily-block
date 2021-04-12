@@ -165,7 +165,7 @@ function Content (props) {
               }
               <div className='card--content--content'>
                 <ReactMarkdown>
-                  {props.content.replaceAll('\\n', '\n')}
+                  {props.content}
                 </ReactMarkdown>
               </div>
             </div>
