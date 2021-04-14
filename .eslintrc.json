@@ -12,7 +12,6 @@
         "react"
     ],
     "rules": {
-        "no-use-before-define": "off"
     },
     "settings": {
         "react": {
