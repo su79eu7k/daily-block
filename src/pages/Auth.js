@@ -69,7 +69,7 @@ const StyledAuthFooter = styled.div`
     font-size: .7rem;
     color: #ffffff;
     @media (max-width: 600px) {
-      height: 2.5rem;
+      height: 2rem;
       width: 5rem;
       font-size: .9rem;
     }

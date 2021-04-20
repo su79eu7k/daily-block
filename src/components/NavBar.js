@@ -7,7 +7,7 @@ function NavBar () {
   return (
     <header id='nav-bar'>
       <div id='logo'>
-        Daily Block
+        Naming
       </div>
       <nav id='nav'>
         <ul>

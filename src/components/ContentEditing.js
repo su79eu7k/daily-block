@@ -94,7 +94,7 @@ function ContentEditing (props) {
         (context) => {
           return (
             <div className='card--io--container'>
-              <div className='card--io--header'>Edit</div>
+              {/* <div className='card--io--header'>Edit</div> */}
               <div className='card--io--body'>
               <form onSubmit={(e) => { editingHandler(e, context) }}>
                 <div className='card--io--body--elem'>
