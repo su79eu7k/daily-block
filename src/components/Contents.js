@@ -12,7 +12,7 @@ import styled from 'styled-components'
 const StyledButton = styled.button`
   margin-top: 3vh;
   height: 3rem;
-  width: 240px;
+  width: 300px;
   padding: 0px;
   border-width: 0px;
   border-radius: .3rem;
