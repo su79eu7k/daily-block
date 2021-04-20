@@ -13,6 +13,9 @@ const StyledAuthContainer = styled(animated.div)`
 
 const StyledAuthHeader = styled.div`
   margin: 1rem auto;
+  @media (max-width: 600px) {
+      font-size: 1.2rem;
+    }
 `
 
 const StyledAuthBody = styled.div`
@@ -30,6 +33,9 @@ const StyledAuthBodyElem = styled.div`
     min-width: 240px;
     font-size: .7rem;
     display: block;
+    @media (max-width: 600px) {
+      font-size: .9rem;
+    }
   }
 
   & input {
@@ -62,6 +68,11 @@ const StyledAuthFooter = styled.div`
     font-family: inherit;
     font-size: .7rem;
     color: #ffffff;
+    @media (max-width: 600px) {
+      height: 2.5rem;
+      width: 5rem;
+      font-size: .9rem;
+    }
 
     &:hover {
       background-color: #443c36;
